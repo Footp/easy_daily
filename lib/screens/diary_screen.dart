@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/buttom_page_bar.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ class DiaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-    Size size = MediaQuery.of(context).size;
 
     return SizedBox(
       height: double.infinity,

@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable
+
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +97,6 @@ class MemoSendBtn extends StatelessWidget {
           sendMemoList.clear();
           _c.pageCount.value = 1;
         }
-        ;
       },
       icon: const Icon(Icons.send_rounded),
     );
