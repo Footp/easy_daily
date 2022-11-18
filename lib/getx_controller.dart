@@ -9,6 +9,6 @@ class Controller extends GetxController {
 
   //페이지 관련
   RxInt pageCount = 0.obs;
-
   RxList memoList = [].obs;
+  RxString dailyDiary = ''.obs;
 }
