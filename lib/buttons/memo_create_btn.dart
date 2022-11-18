@@ -32,20 +32,14 @@ class MemoCreateBtn extends StatelessWidget {
               onSubmitted: (value) {
                 if (value.isNotEmpty) {
                   DateTime? _date = DateTime.now();
-                  String _extraHour = _date.hour.toString();
-                  _extraHour =
-                      _extraHour.length != 2 ? '0$_extraHour' : _extraHour;
-                  String _extraMinute = _date.minute.toString();
-                  _extraMinute = _extraMinute.length != 2
-                      ? '0$_extraMinute'
-                      : _extraMinute;
-                  String _extraTime = '$_extraHour:$_extraMinute';
-                  Map<String, dynamic> creatMemo = {
+                  String _extraTime = timeConvert(_date);
+                  String _extraDate = dateConvert(_date);
+                  Map<String, dynamic> createMemo = {
+                    'date': _extraDate,
                     'time': _extraTime,
                     'memo': value,
-                    'categorie': '개인',
                   };
-                  _c.dailyMemo.add(creatMemo);
+                  _c.dailyMemo.add(createMemo);
                 } else {
                   null;
                 }

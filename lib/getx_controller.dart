@@ -10,5 +10,4 @@ class Controller extends GetxController {
 
   // 페이지 관련
   RxInt pageCount = 0.obs;
-  // RxInt diaryIconCount = 0.obs;
 }

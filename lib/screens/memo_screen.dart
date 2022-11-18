@@ -3,6 +3,7 @@
 import 'package:easy_daily/buttons/memo_create_btn.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/buttom_page_bar.dart';
+import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:easy_daily/buttons/memo_modify_btn.dart';
@@ -42,7 +43,8 @@ class MemoScreen extends StatelessWidget {
                             SizedBox(
                               width: 50,
                               child: Text(
-                                _c.dailyMemo[index]['time'],
+                                _c.dailyMemo[index]['time'].substring(0, 5),
+                                style: textStyle_behind,
                               ),
                             ),
                             Expanded(

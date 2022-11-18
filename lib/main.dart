@@ -33,7 +33,14 @@ class MyApp extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        drawer: const Drawer(),
+        drawer: Drawer(
+          child: TextButton(
+            onPressed: () {
+              _c.dailyMemo.value = testMemoList;
+            },
+            child: const Text('테스트 메모 삽입'),
+          ),
+        ),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
           child: AppBar(
