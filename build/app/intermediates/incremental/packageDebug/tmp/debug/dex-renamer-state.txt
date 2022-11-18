@@ -1,0 +1,4 @@
+#Fri Nov 18 10:09:57 KST 2022
+base.0=/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
