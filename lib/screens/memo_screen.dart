@@ -1,5 +1,6 @@
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/buttom_page_bar.dart';
+import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,15 +23,15 @@ class MemoScreen extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    height: _c.memoList.isEmpty
+                    height: _c.dailyMemo.isEmpty
                         ? 0
-                        : _c.memoList.length * 50 > size.height - 150
+                        : _c.dailyMemo.length * 50 > size.height - 150
                             ? size.height - 150
-                            : _c.memoList.length * 50,
+                            : _c.dailyMemo.length * 50,
                     width: double.infinity,
                     color: Colors.amber,
                     child: ListView.builder(
-                      itemCount: _c.memoList.length,
+                      itemCount: _c.dailyMemo.length,
                       itemBuilder: (context, index) => SizedBox(
                         height: 50,
                         child: Row(
@@ -38,14 +39,14 @@ class MemoScreen extends StatelessWidget {
                             SizedBox(
                               width: 50,
                               child: Text(
-                                _c.memoList[index]['time'],
+                                _c.dailyMemo[index]['time'],
                               ),
                             ),
                             Expanded(
                               child: SizedBox(
                                 width: double.infinity,
                                 child: Text(
-                                  _c.memoList[index]['memo'],
+                                  _c.dailyMemo[index]['memo'],
                                 ),
                               ),
                             ),
@@ -66,6 +67,10 @@ class MemoScreen extends StatelessWidget {
                             child: TextField(
                               autofocus: true,
                               maxLength: 45,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              style: textStyle_basic,
                               onSubmitted: (value) {
                                 DateTime? _date = DateTime.now();
                                 String _extraHour = _date.hour.toString();
@@ -82,7 +87,7 @@ class MemoScreen extends StatelessWidget {
                                   'memo': value,
                                   'categorie': '개인',
                                 };
-                                _c.memoList.add(creatMemo);
+                                _c.dailyMemo.add(creatMemo);
                                 Navigator.pop(context);
                               },
                             ),

@@ -1,3 +1,4 @@
+import 'package:easy_daily/button.dart';
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/screens/buttom_page_bar.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
@@ -28,13 +29,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-    Size size = MediaQuery.of(context).size;
-
-    print(_c.pageCount.value);
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
+        drawer: const Drawer(),
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
           child: AppBar(
@@ -44,6 +43,11 @@ class MyApp extends StatelessWidget {
                 style: textStyle_basic,
               ),
             ),
+            actions: [
+              Obx(
+                () => pageActionList[_c.pageCount.value],
+              ),
+            ],
           ),
         ),
         body: Obx(
