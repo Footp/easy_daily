@@ -1,6 +1,6 @@
-import 'package:easy_daily/button.dart';
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:easy_daily/func.dart';
-import 'package:easy_daily/screens/buttom_page_bar.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
 import 'package:easy_daily/theme.dart';
