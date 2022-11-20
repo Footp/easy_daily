@@ -5,6 +5,7 @@ import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MemoCreateBtn extends StatelessWidget {
   const MemoCreateBtn({super.key});
@@ -20,7 +21,7 @@ class MemoCreateBtn extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           insetPadding: EdgeInsets.zero,
           content: SizedBox(
-            height: 50,
+            height: 60,
             width: size.width,
             child: TextField(
               autofocus: true,
@@ -34,11 +35,15 @@ class MemoCreateBtn extends StatelessWidget {
                   DateTime? _date = DateTime.now();
                   String _extraTime = timeConvert(_date);
                   String _extraDate = dateConvert(_date);
-                  Map<String, dynamic> createMemo = {
-                    'date': _extraDate,
+                  Map<String, String> createMemo = {
                     'time': _extraTime,
                     'memo': value,
                   };
+
+                  allDayMemo[_c.pickDate.value] != Null
+                      ? allDayMemo[_c.pickDate] = []
+                      : null;
+                  allDayMemo[_c.pickDate].add(createMemo);
                   _c.dailyMemo.add(createMemo);
                 } else {
                   null;
@@ -49,10 +54,20 @@ class MemoCreateBtn extends StatelessWidget {
           ),
         ),
       ),
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        color: Colors.red,
+      child: Obx(
+        () => Container(
+          height: double.infinity,
+          width: double.infinity,
+          color: Colors.red,
+          child: _c.dailyMemo.isNotEmpty
+              ? null
+              : Center(
+                  child: Text(
+                    '화면을 탭하여 메모를 작성하세요.',
+                    style: textStyle_behind,
+                  ),
+                ),
+        ),
       ),
     );
   }

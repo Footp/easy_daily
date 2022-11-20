@@ -51,9 +51,9 @@ class MemoSendBtn extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('기존 일기를 덮어쓰시겠습니까?'),
+                      const Text('기존 일기가 덮어씌워집니다.'),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -66,7 +66,8 @@ class MemoSendBtn extends StatelessWidget {
                                       _c.dailyMemo[i]['memo'],
                                     );
                                   }
-                                  _c.dailyDiary.value = sendMemoList.join('\n');
+                                  _c.dailyDiary.value =
+                                      sendMemoList.join('\n\n');
                                   sendMemoList.clear();
                                   Navigator.pop(context);
                                   _c.pageCount.value = 1;
@@ -93,7 +94,7 @@ class MemoSendBtn extends StatelessWidget {
               _c.dailyMemo[i]['memo'],
             );
           }
-          _c.dailyDiary.value = sendMemoList.join('\n');
+          _c.dailyDiary.value = sendMemoList.join('\n\n');
           sendMemoList.clear();
           _c.pageCount.value = 1;
         }

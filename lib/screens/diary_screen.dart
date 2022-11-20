@@ -34,7 +34,7 @@ class DiaryScreen extends StatelessWidget {
                   hintText: '작성된 일기가 없습니다.',
                 ),
                 style: const TextStyle(
-                    fontSize: 20, color: Colors.black, height: 1.5),
+                    fontSize: 15, color: Colors.black, height: 1.5),
                 onChanged: ((value) {
                   _c.dailyDiary.value = value;
                 }),

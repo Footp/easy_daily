@@ -1,6 +1,6 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable
 
-import 'package:easy_daily/buttons/memo_del_btn.dart';
+import 'package:easy_daily/buttons/memo_Act_btn.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +21,13 @@ class MemoModifyBtn extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       insetPadding: EdgeInsets.zero,
       content: SizedBox(
-        height: 80,
+        height: 90,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            MemoDelBtn(index: index), // 메모 삭제 버튼
+            MemoActBtn(index: index), // 메모 삭제 버튼
             SizedBox(
-              height: 50,
+              height: 60,
               width: size.width,
               child: TextField(
                 autofocus: true,
