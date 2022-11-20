@@ -64,7 +64,10 @@ class MyApp extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  _c.dailyMemo.isEmpty ? null : _c.dailyMemo.value = [];
+                  if (_c.dailyMemo.isNotEmpty) {
+                    _c.dailyMemo.value = [];
+                    allDayMemo.remove(_c.pickDate);
+                  }
                 },
                 child: const Text('오늘의 메모 모두 삭제'),
               ),

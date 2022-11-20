@@ -5,7 +5,6 @@ import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class MemoCreateBtn extends StatelessWidget {
   const MemoCreateBtn({super.key});
@@ -38,15 +37,13 @@ class MemoCreateBtn extends StatelessWidget {
                   Map<String, String> createMemo = {
                     'time': _extraTime,
                     'memo': value,
+                    'eMemo': '',
                   };
-
-                  allDayMemo[_c.pickDate.value] != Null
-                      ? allDayMemo[_c.pickDate] = []
+                  allDayMemo[_extraDate] != Null
+                      ? allDayMemo[_extraDate] = []
                       : null;
-                  allDayMemo[_c.pickDate].add(createMemo);
+                  allDayMemo[_extraDate].add(createMemo);
                   _c.dailyMemo.add(createMemo);
-                } else {
-                  null;
                 }
                 Navigator.pop(context);
               },

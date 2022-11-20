@@ -75,7 +75,6 @@ class MemoActBtn extends StatelessWidget {
           ),
           OutlinedButton(
             onPressed: () {
-              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
@@ -88,13 +87,13 @@ class MemoActBtn extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          '한국어',
+                          '원본',
                           style: TextStyle(color: Colors.blue),
                         ),
                         TextField(
                           maxLines: 3,
-                          autofocus: true,
-                          maxLength: 45,
+                          autofocus: false,
+                          enabled: true,
                           controller: TextEditingController(
                             text: _c.dailyMemo[index]['memo'],
                           ),
@@ -102,18 +101,6 @@ class MemoActBtn extends StatelessWidget {
                             border: InputBorder.none,
                           ),
                           style: textStyle_basic,
-                          onChanged: (value) {
-                            if (value.isEmpty) {
-                              null;
-                            } else {
-                              // 리스트 안의 맵의 값이 변화해도 화면은 갱신되지 않는다.
-                              // 리스트 단위에서 맵을 통째로 교체하여 해결
-                              Map _extraMemo = _c.dailyMemo[index];
-                              _extraMemo['memo'] = value;
-                              _c.dailyMemo.removeAt(index);
-                              _c.dailyMemo.insert(index, _extraMemo);
-                            }
-                          },
                         ),
                         const SizedBox(
                           height: 20,
