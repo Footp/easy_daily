@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
         drawer: Drawer(
           width: 200,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextButton(
                 onPressed: () {
@@ -61,6 +62,9 @@ class MyApp extends StatelessWidget {
                   }
                 },
                 child: const Text('테스트 메모 삽입'),
+              ),
+              const SizedBox(
+                height: 20,
               ),
               TextButton(
                 onPressed: () {

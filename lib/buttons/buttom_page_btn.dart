@@ -6,8 +6,8 @@ import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ButtomPageBar extends StatelessWidget {
-  const ButtomPageBar({super.key});
+class ButtomPageBtn extends StatelessWidget {
+  const ButtomPageBtn({super.key});
 
   @override
   Widget build(BuildContext context) {

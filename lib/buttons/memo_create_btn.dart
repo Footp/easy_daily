@@ -42,8 +42,8 @@ class MemoCreateBtn extends StatelessWidget {
                   allDayMemo[_c.pickDate] == Null
                       ? null
                       : allDayMemo[_c.pickDate] = _c.dailyMemo;
-                  // print(_c.dailyMemo.length);
-                  // print(allDayMemo[_c.pickDate].length);
+                  print(_c.dailyMemo.length);
+                  print(allDayMemo[_c.pickDate].length);
                 }
                 Navigator.pop(context);
               },

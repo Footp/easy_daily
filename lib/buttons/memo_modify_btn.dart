@@ -49,8 +49,8 @@ class MemoModifyBtn extends StatelessWidget {
                     _c.dailyMemo.removeAt(index);
                     _c.dailyMemo.insert(index, _extraMemo);
                     allDayMemo[_c.pickDate] = _c.dailyMemo;
-                    // print(_c.dailyMemo[index]['memo']);
-                    // print(allDayMemo[_c.pickDate][index]['memo']);
+                    print(_c.dailyMemo[index]['memo']);
+                    print(allDayMemo[_c.pickDate][index]['memo']);
                   }
                 },
                 onSubmitted: (value) {
