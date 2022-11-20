@@ -44,7 +44,7 @@ class MemoSendBtn extends StatelessWidget {
               ),
             ),
           );
-        } else if (_c.dailyDiaryKo.isNotEmpty) {
+        } else if (_c.dailyDiary.isNotEmpty) {
           SendCoverDialog(context, _c);
         } else {
           SendDiary(_c);
@@ -56,13 +56,14 @@ class MemoSendBtn extends StatelessWidget {
   }
 
   void SendDiary(Controller _c) {
+    _c.dailyDiary.isEmpty ? _c.dailyDiary.value = ['', ''] : null;
     {
       for (int i = 0; i < _c.dailyMemo.length; i++) {
         sendMemoList.add(
           _c.dailyMemo[i]['memo'],
         );
       }
-      _c.dailyDiaryKo.value = sendMemoList.join('\n\n');
+      _c.dailyDiary[0] = sendMemoList.join('\n\n');
       sendMemoList.clear();
     }
     {
@@ -73,7 +74,7 @@ class MemoSendBtn extends StatelessWidget {
                 _c.dailyMemo[i]['eMemo'],
               );
       }
-      _c.dailyDiaryEng.value = sendMemoListEng.join('\n\n');
+      _c.dailyDiary[1] = sendMemoListEng.join('\n\n');
       sendMemoListEng.clear();
     }
   }

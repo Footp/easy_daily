@@ -1,10 +1,10 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names
 
+import 'package:easy_daily/buttons/daily_picker_btn.dart';
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
-import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
       DateTime.now(),
     );
 
+    DataGet(_c);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(40),
           child: AppBar(
-            title: const DailyPicker(),
+            title: const DailyPickerBtn(),
             actions: [
               Obx(
                 () => pageActionList[_c.pageCount.value],
@@ -95,32 +96,14 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-}
 
-class DailyPicker extends StatelessWidget {
-  const DailyPicker({
-    Key? key,
-  }) : super(key: key);
+  void DataGet(Controller _c) {
+    allDayMemo[_c.pickDate] == null
+        ? null
+        : _c.dailyMemo.value = allDayMemo[_c.pickDate];
 
-  @override
-  Widget build(BuildContext context) {
-    final _c = Get.put(Controller());
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          Icons.navigate_before,
-          color: Colors.black,
-        ),
-        Text(
-          _c.pickDate.value,
-          style: textStyle_basic,
-        ),
-        const Icon(
-          Icons.navigate_next,
-          color: Colors.black,
-        ),
-      ],
-    );
+    allDayDiary[_c.pickDate] == null
+        ? null
+        : _c.dailyDiary.value = allDayDiary[_c.pickDate];
   }
 }

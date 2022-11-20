@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unrelated_type_equality_checks
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -17,6 +17,7 @@ class ButtomPageBtn extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           _c.pageCount.value = _c.pageCount.value == 0 ? 1 : 0;
+          _c.dailyDiary.isEmpty ? _c.dailyDiary.value = ['', ''] : null;
         },
         child: SizedBox(
           height: 30,

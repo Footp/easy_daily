@@ -4,11 +4,9 @@ class Controller extends GetxController {
   // 데이터 관련
   RxList dailyMemo = [].obs;
   RxList dailyDiary = [].obs;
-  RxString dailyDiaryKo = ''.obs;
-  RxString dailyDiaryEng = ''.obs;
 
   // 날짜 임시저장
-  RxString pickDate = '날짜를 선택하세요.'.obs;
+  RxString pickDate = ''.obs;
 
   // 페이지 관련
   RxInt pageCount = 0.obs;

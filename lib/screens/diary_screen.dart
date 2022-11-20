@@ -1,5 +1,6 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors, unrelated_type_equality_checks
 
+import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/buttons/buttom_page_btn.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ class DiaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-
+    allDayDiary[_c.pickDate] == Null
+        ? allDayDiary[_c.pickDate] = _c.dailyDiary
+        : null;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -49,7 +52,7 @@ class DiaryPageKo extends StatelessWidget {
         enabled: true,
         maxLines: null,
         controller: TextEditingController(
-          text: _c.dailyDiaryKo.value,
+          text: _c.dailyDiary[0],
         ),
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -61,7 +64,8 @@ class DiaryPageKo extends StatelessWidget {
           height: 1.5,
         ),
         onChanged: ((value) {
-          _c.dailyDiaryKo.value = value;
+          _c.dailyDiary[0] = value;
+          allDayDiary[_c.pickDate] = _c.dailyDiary;
         }),
       ),
     );
@@ -85,7 +89,7 @@ class DiaryPageEn extends StatelessWidget {
         enabled: true,
         maxLines: null,
         controller: TextEditingController(
-          text: _c.dailyDiaryEng.value,
+          text: _c.dailyDiary[1],
         ),
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -97,8 +101,8 @@ class DiaryPageEn extends StatelessWidget {
           height: 1.5,
         ),
         onChanged: ((value) {
-          _c.dailyDiaryEng.value = value;
-          print(_c.dailyDiaryEng);
+          _c.dailyDiary[1] = value;
+          allDayDiary[_c.pickDate] = _c.dailyDiary;
         }),
       ),
     );
