@@ -20,13 +20,17 @@ class MemoSendBtn extends StatelessWidget {
               content: SizedBox(
                 height: 100,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(
+                    top: 24.0,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('전송할 메모가 없습니다.'),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32.0,
+                        ),
                         child: OutlinedButton(
                           onPressed: () {
                             Navigator.pop(context);
@@ -40,20 +44,24 @@ class MemoSendBtn extends StatelessWidget {
               ),
             ),
           );
-        } else if (_c.dailyDiary.value.isNotEmpty) {
+        } else if (_c.dailyDiary.isNotEmpty) {
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
               content: SizedBox(
                 height: 100,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(
+                    top: 24.0,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('기존 일기가 덮어씌워집니다.'),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

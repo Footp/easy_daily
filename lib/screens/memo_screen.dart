@@ -26,7 +26,9 @@ class MemoScreen extends StatelessWidget {
               () => Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                    ),
                     height: _c.dailyMemo.isEmpty
                         ? 0
                         : _c.dailyMemo.length * 50 > size.height - 150

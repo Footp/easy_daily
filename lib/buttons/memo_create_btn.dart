@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, empty_statements, avoid_print
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -33,17 +33,17 @@ class MemoCreateBtn extends StatelessWidget {
                 if (value.isNotEmpty) {
                   DateTime? _date = DateTime.now();
                   String _extraTime = timeConvert(_date);
-                  String _extraDate = dateConvert(_date);
                   Map<String, String> createMemo = {
                     'time': _extraTime,
                     'memo': value,
                     'eMemo': '',
                   };
-                  allDayMemo[_extraDate] != Null
-                      ? allDayMemo[_extraDate] = []
-                      : null;
-                  allDayMemo[_extraDate].add(createMemo);
                   _c.dailyMemo.add(createMemo);
+                  allDayMemo[_c.pickDate] == Null
+                      ? null
+                      : allDayMemo[_c.pickDate] = _c.dailyMemo;
+                  // print(_c.dailyMemo.length);
+                  // print(allDayMemo[_c.pickDate].length);
                 }
                 Navigator.pop(context);
               },

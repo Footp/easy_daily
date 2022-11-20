@@ -56,8 +56,8 @@ class MyApp extends StatelessWidget {
                   if (testMemo[_c.pickDate.value].runtimeType == Null) {
                     null;
                   } else {
-                    _c.dailyMemo.value = testMemo[_c.pickDate.value];
-                    allDayMemo[_c.pickDate.value] = testMemo[_c.pickDate.value];
+                    _c.dailyMemo.value = testMemo[_c.pickDate];
+                    allDayMemo[_c.pickDate] = testMemo[_c.pickDate];
                   }
                 },
                 child: const Text('테스트 메모 삽입'),

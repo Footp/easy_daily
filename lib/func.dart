@@ -23,6 +23,7 @@ List pageActionList = const [
 
 List sendMemoList = [];
 Map allDayMemo = {};
+Map allDayDiary = {};
 
 String timeConvert(input) {
   String _extra = DateFormat('HH:mm:ss').format(input);
@@ -83,6 +84,14 @@ Map testMemo = {
     {
       'time': '21:00',
       'memo': '드디어 집 오늘 하체 잘 먹은듯 뿌듯하고 피곤하다',
+    },
+  ],
+};
+Map testDiary = {
+  '2022/11/20 (일)': [
+    {
+      'ko': '한국어 일기',
+      'en': 'Diary in english',
     },
   ],
 };

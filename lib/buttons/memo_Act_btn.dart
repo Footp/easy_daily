@@ -1,5 +1,6 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, file_names
 
+import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,9 @@ class MemoActBtn extends StatelessWidget {
                                 OutlinedButton(
                                   onPressed: () {
                                     _c.dailyMemo.removeAt(index);
+                                    allDayMemo[_c.pickDate] = _c.dailyMemo;
+                                    // print(_c.dailyMemo.length);
+                                    // print(allDayMemo[_c.pickDate].length);
                                     Navigator.pop(context);
                                     Navigator.pop(context);
                                   },
@@ -75,9 +79,11 @@ class MemoActBtn extends StatelessWidget {
           ),
           OutlinedButton(
             onPressed: () {
+              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
+                  alignment: Alignment.bottomCenter,
                   insetPadding: EdgeInsets.zero,
                   content: SizedBox(
                     height: 300,
@@ -101,6 +107,15 @@ class MemoActBtn extends StatelessWidget {
                             border: InputBorder.none,
                           ),
                           style: textStyle_basic,
+                          onChanged: (value) {
+                            Map _extraMemo = _c.dailyMemo[index];
+                            _extraMemo['memo'] = value;
+                            _c.dailyMemo.removeAt(index);
+                            _c.dailyMemo.insert(index, _extraMemo);
+                            allDayMemo[_c.pickDate] = _c.dailyMemo;
+                            print(_c.dailyMemo[index]['memo']);
+                            print(allDayMemo[_c.pickDate][index]['memo']);
+                          },
                         ),
                         const SizedBox(
                           height: 20,
