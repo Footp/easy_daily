@@ -48,7 +48,7 @@ class MemoDelBtn extends StatelessWidget {
                       },
                       child: const Text('삭제'),
                     ),
-                    const SizedBox(width: 30),
+                    const SizedBox(width: 50),
                     OutlinedButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -83,6 +83,7 @@ class EngPlusBtn extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       insetPadding: EdgeInsets.zero,
       content: SizedBox(
+        height: 320,
         width: size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,6 +121,13 @@ class EngPlusBtn extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 10.0,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    width: 1,
+                    color: Colors.black12,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
@@ -166,6 +174,13 @@ class EngPlusBtn extends StatelessWidget {
                 border: InputBorder.none,
                 contentPadding: const EdgeInsets.all(
                   10.0,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    width: 1,
+                    color: Colors.black12,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(

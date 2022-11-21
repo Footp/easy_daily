@@ -58,13 +58,13 @@ class MemoScreen extends StatelessWidget {
                                       MemoModifyBtn(index: index),
                                 ),
                                 // 영어 작문
-                                onLongPress: () => showDialog(
+                                onDoubleTap: () => showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       EngPlusBtn(size: size, index: index),
                                 ),
                                 // 메모 삭제
-                                onDoubleTap: () => showDialog(
+                                onLongPress: () => showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       MemoDelBtn(index: index),

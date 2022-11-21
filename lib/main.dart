@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unrelated_type_equality_checks
+// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unrelated_type_equality_checks, avoid_print
 
 import 'package:easy_daily/buttons/daily_picker_btn.dart';
 import 'package:easy_daily/func.dart';
@@ -67,20 +67,33 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 OutlinedButton(
-                    onPressed: () {
-                      Hive.box('EasyDaily_Memo')
-                          .put(_c.pickDate.value, testMemoList);
-                      _c.dailyMemo.value = testMemoList;
-                    },
-                    child: const Text('테스트 데이터 추가하기')),
+                  onPressed: () {
+                    Hive.box('EasyDaily_Memo')
+                        .put(_c.pickDate.value, testMemoList);
+                    _c.dailyMemo.value = testMemoList;
+                  },
+                  child: const SizedBox(
+                    width: 120,
+                    child: Text('테스트 데이터 추가'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 OutlinedButton(
-                    onPressed: () {
-                      Hive.box('EasyDaily_Memo').clear();
-                      _c.dailyMemo.clear();
-                      Hive.box('EasyDaily_Diary').clear();
-                      _c.dailyDiary.clear();
-                    },
-                    child: const Text('모든 데이터 삭제')),
+                  onPressed: () {
+                    Hive.box('EasyDaily_Memo').clear();
+                    _c.dailyMemo.clear();
+                    Hive.box('EasyDaily_Diary').clear();
+                    _c.dailyDiary.clear();
+                    Hive.openBox('EasyDaily_Memo');
+                    Hive.openBox('EasyDaily_Diary');
+                  },
+                  child: const SizedBox(
+                    width: 120,
+                    child: Text('모든 데이터 삭제'),
+                  ),
+                ),
               ],
             ),
           ),

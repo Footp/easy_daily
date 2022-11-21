@@ -114,7 +114,7 @@ class MemoSendBtn extends StatelessWidget {
                                 .get(_c.pickDate.value));
                           },
                           child: const Text('확인')),
-                      const SizedBox(width: 30),
+                      const SizedBox(width: 50),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pop(context);
