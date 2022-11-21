@@ -31,8 +31,8 @@ class MemoScreen extends StatelessWidget {
                     ),
                     height: _c.dailyMemo.isEmpty
                         ? 0
-                        : _c.dailyMemo.length * 50 > size.height - 150
-                            ? size.height - 150
+                        : _c.dailyMemo.length * 50 > size.height - 200
+                            ? size.height - 200
                             : _c.dailyMemo.length * 50,
                     width: double.infinity,
                     color: Colors.white,
@@ -57,10 +57,17 @@ class MemoScreen extends StatelessWidget {
                                   builder: (BuildContext context) =>
                                       MemoModifyBtn(index: index),
                                 ),
+                                // 영어 작문
                                 onLongPress: () => showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       EngPlusBtn(size: size, index: index),
+                                ),
+                                // 메모 삭제
+                                onDoubleTap: () => showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      MemoDelBtn(index: index),
                                 ),
                                 child: SizedBox(
                                   width: double.infinity,

@@ -5,6 +5,7 @@ import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
+import 'package:easy_daily/testdata.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -62,14 +63,26 @@ class MyApp extends StatelessWidget {
           resizeToAvoidBottomInset: false,
           drawer: Drawer(
             width: 200,
-            child: OutlinedButton(
-                onPressed: () {
-                  Hive.box('EasyDaily_Memo').clear();
-                  _c.dailyMemo.clear();
-                  Hive.box('EasyDaily_Diary').clear();
-                  _c.dailyDiary.clear();
-                },
-                child: const Text('모든 데이터 삭제')),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                    onPressed: () {
+                      Hive.box('EasyDaily_Memo')
+                          .put(_c.pickDate.value, testMemoList);
+                      _c.dailyMemo.value = testMemoList;
+                    },
+                    child: const Text('테스트 데이터 추가하기')),
+                OutlinedButton(
+                    onPressed: () {
+                      Hive.box('EasyDaily_Memo').clear();
+                      _c.dailyMemo.clear();
+                      Hive.box('EasyDaily_Diary').clear();
+                      _c.dailyDiary.clear();
+                    },
+                    child: const Text('모든 데이터 삭제')),
+              ],
+            ),
           ),
           appBar: AppBar(
             title: const DailyPickerBtn(),
@@ -93,6 +106,7 @@ class MyApp extends StatelessWidget {
                             duration: const Duration(milliseconds: 200),
                             curve: Curves.easeIn,
                             _c.pageViewCount.value);
+                        print(_c.pageViewCount);
                       },
                       child: _c.pageViewCount == 0
                           ? const Text('영')

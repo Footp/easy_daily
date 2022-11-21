@@ -17,6 +17,7 @@ class ButtomPageBtn extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           _c.pageCount.value = _c.pageCount.value == 0 ? 1 : 0;
+          _c.pageViewCount.value = 0;
           _c.dailyDiary.isEmpty ? _c.dailyDiary.value = ['', ''] : null;
         },
         child: SizedBox(

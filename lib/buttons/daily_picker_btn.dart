@@ -20,6 +20,7 @@ class DailyPickerBtn extends StatelessWidget {
             onPressed: () {
               newDate = newDate!.add(const Duration(days: -1));
               dateTrans(_c, newDate);
+              _c.pageCount.value = 0;
             },
             icon: const Icon(
               Icons.navigate_before,
@@ -28,13 +29,15 @@ class DailyPickerBtn extends StatelessWidget {
           ),
           TextButton(
             onPressed: () async {
-              newDate = await showDatePicker(
+              DateTime? _newDate = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(), // 초깃값
                 firstDate: DateTime(2022), // 시작일
                 lastDate: DateTime.now(), // 마지막일
               );
+              newDate = _newDate.runtimeType != Null ? _newDate : newDate;
               dateTrans(_c, newDate);
+              _c.pageCount.value = 0;
             },
             child: Text(
               _c.pickDate.value,
@@ -45,6 +48,7 @@ class DailyPickerBtn extends StatelessWidget {
             onPressed: () {
               newDate = newDate!.add(const Duration(days: 1));
               dateTrans(_c, newDate);
+              _c.pageCount.value = 0;
             },
             icon: const Icon(
               Icons.navigate_next,
