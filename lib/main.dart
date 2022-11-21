@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names
+// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unrelated_type_equality_checks
 
 import 'package:easy_daily/buttons/daily_picker_btn.dart';
 import 'package:easy_daily/func.dart';
@@ -46,52 +46,82 @@ class MyApp extends StatelessWidget {
 
     DataGet(_c);
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        drawer: Drawer(
-          width: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  if (testMemo[_c.pickDate.value].runtimeType == Null) {
-                    null;
-                  } else {
-                    _c.dailyMemo.value = testMemo[_c.pickDate];
-                    allDayMemo[_c.pickDate] = testMemo[_c.pickDate];
-                  }
-                },
-                child: const Text('테스트 메모 삽입'),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextButton(
-                onPressed: () {
-                  if (_c.dailyMemo.isNotEmpty) {
-                    _c.dailyMemo.value = [];
-                    allDayMemo.remove(_c.pickDate);
-                  }
-                },
-                child: const Text('오늘의 메모 모두 삭제'),
-              ),
-            ],
+      child: Obx(
+        () => Scaffold(
+          resizeToAvoidBottomInset: false,
+          drawer: Drawer(
+            width: 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    if (testMemo[_c.pickDate.value].runtimeType == Null) {
+                      null;
+                    } else {
+                      _c.dailyMemo.value = testMemo[_c.pickDate];
+                      allDayMemo[_c.pickDate] = testMemo[_c.pickDate];
+                    }
+                  },
+                  child: const Text('테스트 메모 삽입'),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (_c.dailyMemo.isNotEmpty) {
+                      _c.dailyMemo.value = [];
+                      allDayMemo.remove(_c.pickDate);
+                    }
+                  },
+                  child: const Text('오늘의 메모 모두 삭제'),
+                ),
+              ],
+            ),
           ),
-        ),
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(40),
-          child: AppBar(
-            title: const DailyPickerBtn(),
-            actions: [
-              Obx(
-                () => pageActionList[_c.pageCount.value],
-              ),
-            ],
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(40),
+            child: AppBar(
+              title: const DailyPickerBtn(),
+              actions: [
+                Obx(
+                  () => pageActionList[_c.pageCount.value],
+                ),
+              ],
+            ),
           ),
-        ),
-        body: Obx(
-          () => pageList[_c.pageCount.value],
+          body: pageList[_c.pageCount.value],
+          floatingActionButton: _c.pageCount != 0
+              ? Obx(
+                  () => Padding(
+                    padding: const EdgeInsets.fromLTRB(32.0, 0, 0, 16.0),
+                    child: Align(
+                      alignment: _c.pageViewCount == 0
+                          ? Alignment.bottomRight
+                          : Alignment.bottomLeft,
+                      child: FloatingActionButton.small(
+                        hoverElevation: 0,
+                        highlightElevation: 0,
+                        backgroundColor: Colors.transparent,
+                        foregroundColor: Colors.black,
+                        elevation: 0,
+                        onPressed: () {
+                          _c.pageViewCount.value =
+                              _c.pageViewCount == 0 ? 1 : 0;
+                          pageController.animateToPage(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeIn,
+                              _c.pageViewCount.value);
+                        },
+                        child: _c.pageViewCount == 0
+                            ? const Icon(Icons.navigate_next)
+                            : const Icon(Icons.navigate_before),
+                      ),
+                    ),
+                  ),
+                )
+              : null,
         ),
       ),
     );

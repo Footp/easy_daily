@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, file_names, avoid_print, non_constant_identifier_names
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, file_names, avoid_print, non_constant_identifier_names, invalid_use_of_protected_member
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -80,9 +80,10 @@ class MemoActBtn extends StatelessWidget {
                   _extraMemo['memo'] = value;
                   _c.dailyMemo.removeAt(index);
                   _c.dailyMemo.insert(index, _extraMemo);
-                  allDayMemo[_c.pickDate] = _c.dailyMemo;
+                  allDayMemo[_c.pickDate] = _c.dailyMemo.value;
                   print(_c.dailyMemo[index]['memo']);
                   print(allDayMemo[_c.pickDate][index]['memo']);
+                  print(allDayMemo[_c.pickDate].runtimeType);
                 },
               ),
               const SizedBox(
@@ -113,9 +114,10 @@ class MemoActBtn extends StatelessWidget {
                   _extraMemo['eMemo'] = value;
                   _c.dailyMemo.removeAt(index);
                   _c.dailyMemo.insert(index, _extraMemo);
-                  allDayMemo[_c.pickDate] = _c.dailyMemo;
+                  allDayMemo[_c.pickDate] = _c.dailyMemo.value;
                   print(_c.dailyMemo[index]['eMemo']);
                   print(allDayMemo[_c.pickDate][index]['eMemo']);
+                  print(allDayMemo[_c.pickDate].runtimeType);
                 },
               ),
             ],
@@ -145,9 +147,10 @@ class MemoActBtn extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () {
                           _c.dailyMemo.removeAt(index);
-                          allDayMemo[_c.pickDate] = _c.dailyMemo;
+                          allDayMemo[_c.pickDate] = _c.dailyMemo.value;
                           print(_c.dailyMemo.length);
                           print(allDayMemo[_c.pickDate].length);
+                          print(allDayMemo[_c.pickDate].runtimeType);
                           Navigator.pop(context);
                           Navigator.pop(context);
                         },

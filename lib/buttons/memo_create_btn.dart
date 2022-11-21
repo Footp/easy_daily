@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, empty_statements, avoid_print
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, empty_statements, avoid_print, invalid_use_of_protected_member
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -41,9 +41,10 @@ class MemoCreateBtn extends StatelessWidget {
                   _c.dailyMemo.add(createMemo);
                   allDayMemo[_c.pickDate] == Null
                       ? null
-                      : allDayMemo[_c.pickDate] = _c.dailyMemo;
+                      : allDayMemo[_c.pickDate] = _c.dailyMemo.value;
                   print(_c.dailyMemo.length);
                   print(allDayMemo[_c.pickDate].length);
+                  print(allDayMemo[_c.pickDate].runtimeType);
                 }
                 Navigator.pop(context);
               },

@@ -4,7 +4,10 @@ import 'package:easy_daily/buttons/diary_modify_btn.dart';
 import 'package:easy_daily/buttons/memo_send_btn.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+PageController pageController = PageController();
 
 List buttomPageBar = [
   'Memo',

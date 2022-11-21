@@ -1,4 +1,4 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors, unrelated_type_equality_checks
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors, unrelated_type_equality_checks, invalid_use_of_protected_member
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -13,7 +13,7 @@ class DiaryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
     allDayDiary[_c.pickDate] == Null
-        ? allDayDiary[_c.pickDate] = _c.dailyDiary
+        ? allDayDiary[_c.pickDate] = _c.dailyDiary.value
         : null;
     return SizedBox(
       height: double.infinity,
@@ -22,11 +22,18 @@ class DiaryScreen extends StatelessWidget {
         children: [
           Expanded(
             child: PageView(
+              controller: pageController,
               children: const [
                 DiaryPageKo(),
                 DiaryPageEn(),
               ],
+              onPageChanged: (value) {
+                _c.pageViewCount.value = value;
+              },
             ),
+          ),
+          const SizedBox(
+            height: 40,
           ),
           const ButtomPageBtn(),
         ],
@@ -65,7 +72,10 @@ class DiaryPageKo extends StatelessWidget {
         ),
         onChanged: ((value) {
           _c.dailyDiary[0] = value;
-          allDayDiary[_c.pickDate] = _c.dailyDiary;
+          allDayDiary[_c.pickDate] = _c.dailyDiary.value;
+          print(_c.dailyDiary);
+          print(allDayDiary[_c.pickDate]);
+          print(allDayDiary[_c.pickDate].runtimeType);
         }),
       ),
     );
@@ -102,7 +112,10 @@ class DiaryPageEn extends StatelessWidget {
         ),
         onChanged: ((value) {
           _c.dailyDiary[1] = value;
-          allDayDiary[_c.pickDate] = _c.dailyDiary;
+          allDayDiary[_c.pickDate] = _c.dailyDiary.value;
+          print(_c.dailyDiary);
+          print(allDayDiary[_c.pickDate]);
+          print(allDayDiary[_c.pickDate].runtimeType);
         }),
       ),
     );

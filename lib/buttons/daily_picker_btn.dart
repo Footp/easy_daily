@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DailyPickerBtn extends StatelessWidget {
-  const DailyPickerBtn({
-    Key? key,
-  }) : super(key: key);
+  const DailyPickerBtn({super.key});
 
   @override
   Widget build(BuildContext context) {
