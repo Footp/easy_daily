@@ -12,7 +12,7 @@ class DiaryModifyBtn extends StatelessWidget {
     final _c = Get.put(Controller());
     return IconButton(
       onPressed: () => FocusManager.instance.primaryFocus?.unfocus(),
-      icon: const Icon(Icons.save_as),
+      icon: const Icon(Icons.remove_red_eye),
     );
   }
 }

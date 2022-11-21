@@ -9,11 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialization(null);
+
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -53,56 +53,50 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-    _c.pickDate.value = DateFormat('yyyy/MM/dd (E)', 'ko').format(
-      DateTime.now(),
-    );
+    newDate = DateTime.now();
+    dateTrans(_c, newDate);
 
-    HiveDataGet(_c);
     return SafeArea(
       child: Obx(
         () => Scaffold(
           resizeToAvoidBottomInset: false,
-          drawer: const Drawer(
+          drawer: Drawer(
             width: 200,
+            child: OutlinedButton(
+                onPressed: () {
+                  Hive.box('EasyDaily_Memo').clear();
+                  _c.dailyMemo.clear();
+                  Hive.box('EasyDaily_Diary').clear();
+                  _c.dailyDiary.clear();
+                },
+                child: const Text('모든 데이터 삭제')),
           ),
-          appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(40),
-            child: AppBar(
-              title: const DailyPickerBtn(),
-              actions: [
-                Obx(
-                  () => pageActionList[_c.pageCount.value],
-                ),
-              ],
-            ),
+          appBar: AppBar(
+            title: const DailyPickerBtn(),
+            actions: [
+              pageActionList[_c.pageCount.value],
+            ],
           ),
           body: pageList[_c.pageCount.value],
           floatingActionButton: _c.pageCount != 0
-              ? Obx(
-                  () => Padding(
-                    padding: const EdgeInsets.fromLTRB(32.0, 0, 0, 16.0),
-                    child: Align(
-                      alignment: _c.pageViewCount == 0
-                          ? Alignment.bottomRight
-                          : Alignment.bottomLeft,
-                      child: FloatingActionButton.small(
-                        hoverElevation: 0,
-                        highlightElevation: 0,
-                        backgroundColor: Colors.transparent,
-                        foregroundColor: Colors.black,
-                        elevation: 0,
-                        onPressed: () {
-                          _c.pageViewCount.value =
-                              _c.pageViewCount == 0 ? 1 : 0;
-                          pageController.animateToPage(
-                              duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeIn,
-                              _c.pageViewCount.value);
-                        },
-                        child: _c.pageViewCount == 0
-                            ? const Icon(Icons.navigate_next)
-                            : const Icon(Icons.navigate_before),
-                      ),
+              ? Padding(
+                  padding: const EdgeInsets.only(bottom: 48.0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton.small(
+                      hoverElevation: 0,
+                      highlightElevation: 0,
+                      elevation: 0,
+                      onPressed: () {
+                        _c.pageViewCount.value = _c.pageViewCount == 0 ? 1 : 0;
+                        pageController.animateToPage(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeIn,
+                            _c.pageViewCount.value);
+                      },
+                      child: _c.pageViewCount == 0
+                          ? const Text('영')
+                          : const Text('한'),
                     ),
                   ),
                 )
@@ -110,16 +104,5 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void HiveDataGet(Controller _c) {
-    Hive.box('EasyDaily_Memo').get('Memo') != Null
-        ? null
-        : _c.dailyMemo.value =
-            Hive.box('EasyDaily_Memo').get(_c.pickDate.value);
-    Hive.box('EasyDaily_Diary').get('Diary') != Null
-        ? null
-        : _c.dailyDiary.value =
-            Hive.box('EasyDaily_Diary').get(_c.pickDate.value);
   }
 }

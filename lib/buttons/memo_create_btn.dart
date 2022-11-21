@@ -42,7 +42,7 @@ class MemoCreateBtn extends StatelessWidget {
                   _c.dailyMemo.add(createMemo);
                   Hive.box('EasyDaily_Memo')
                       .put(_c.pickDate.value, _c.dailyMemo.value);
-                  print(_c.dailyDiary);
+                  print(_c.dailyMemo);
                   print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
                 }
                 Navigator.pop(context);
@@ -55,7 +55,7 @@ class MemoCreateBtn extends StatelessWidget {
         () => Container(
           height: double.infinity,
           width: double.infinity,
-          color: Colors.red,
+          color: Colors.white,
           child: _c.dailyMemo.isNotEmpty
               ? null
               : Center(

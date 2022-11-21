@@ -53,11 +53,11 @@ class DiaryPageKo extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       child: TextField(
-        autofocus: true,
+        autofocus: false,
         enabled: true,
         maxLines: null,
         controller: TextEditingController(
-          text: _c.dailyDiary[0],
+          text: _c.dailyDiary[_c.pageViewCount.value],
         ),
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -68,13 +68,13 @@ class DiaryPageKo extends StatelessWidget {
           color: Colors.black,
           height: 1.5,
         ),
-        onChanged: ((value) {
-          _c.dailyDiary[0] = value;
+        onChanged: (value) {
+          _c.dailyDiary[_c.pageViewCount.value] = value;
           Hive.box('EasyDaily_Diary')
               .put(_c.pickDate.value, _c.dailyDiary.value);
           print(_c.dailyDiary);
           print(Hive.box('EasyDaily_Diary').get(_c.pickDate.value));
-        }),
+        },
       ),
     );
   }
@@ -93,11 +93,11 @@ class DiaryPageEn extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       child: TextField(
-        autofocus: true,
+        autofocus: false,
         enabled: true,
         maxLines: null,
         controller: TextEditingController(
-          text: _c.dailyDiary[1],
+          text: _c.dailyDiary[_c.pageViewCount.value],
         ),
         decoration: const InputDecoration(
           border: InputBorder.none,
@@ -108,13 +108,13 @@ class DiaryPageEn extends StatelessWidget {
           color: Colors.black,
           height: 1.5,
         ),
-        onChanged: ((value) {
-          _c.dailyDiary[1] = value;
+        onChanged: (value) {
+          _c.dailyDiary[_c.pageViewCount.value] = value;
           Hive.box('EasyDaily_Diary')
               .put(_c.pickDate.value, _c.dailyDiary.value);
           print(_c.dailyDiary);
           print(Hive.box('EasyDaily_Diary').get(_c.pickDate.value));
-        }),
+        },
       ),
     );
   }

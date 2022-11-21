@@ -20,7 +20,7 @@ class ButtomPageBtn extends StatelessWidget {
           _c.dailyDiary.isEmpty ? _c.dailyDiary.value = ['', ''] : null;
         },
         child: SizedBox(
-          height: 30,
+          height: 50,
           width: double.infinity,
           child: Container(
             height: double.infinity,

@@ -38,91 +38,15 @@ class MemoActBtn extends StatelessWidget {
           OutlinedButton(
             onPressed: () {
               Navigator.pop(context);
-              EngPlusDialog(context, size, _c);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                    EngPlusBtn(size: size, index: index),
+              );
             },
             child: const Text('Eng+'),
           ),
         ],
-      ),
-    );
-  }
-
-  void EngPlusDialog(BuildContext context, Size size, Controller _c) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        alignment: Alignment.bottomCenter,
-        insetPadding: EdgeInsets.zero,
-        content: SizedBox(
-          height: 300,
-          width: size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '원본',
-                style: TextStyle(color: Colors.blue),
-              ),
-              TextField(
-                maxLines: 3,
-                autofocus: false,
-                enabled: true,
-                controller: TextEditingController(
-                  text: _c.dailyMemo[index]['memo'],
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                style: textStyle_basic,
-                onChanged: (value) {
-                  Map _extraMemo = _c.dailyMemo[index];
-                  _extraMemo['memo'] = value;
-                  _c.dailyMemo.removeAt(index);
-                  _c.dailyMemo.insert(index, _extraMemo);
-                  Hive.box('EasyDaily_Memo')
-                      .put(_c.pickDate.value, _c.dailyMemo.value);
-                  print(_c.dailyMemo);
-                  print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(color: Colors.black45, thickness: 1.0),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                '영어',
-                style: TextStyle(color: Colors.blue),
-              ),
-              TextField(
-                maxLines: 3,
-                autofocus: true,
-                maxLength: 200,
-                enabled: true,
-                controller: TextEditingController(
-                  text: _c.dailyMemo[index]['eMemo'],
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                style: textStyle_basic,
-                onChanged: (value) {
-                  Map _extraMemo = _c.dailyMemo[index];
-                  _extraMemo['eMemo'] = value;
-                  _c.dailyMemo.removeAt(index);
-                  _c.dailyMemo.insert(index, _extraMemo);
-                  Hive.box('EasyDaily_Memo')
-                      .put(_c.pickDate.value, _c.dailyMemo.value);
-                  print(_c.dailyMemo);
-                  print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
-                },
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
@@ -134,21 +58,25 @@ class MemoActBtn extends StatelessWidget {
         content: SizedBox(
           height: 100,
           child: Padding(
-            padding: const EdgeInsets.only(top: 24),
+            padding: const EdgeInsets.only(top: 16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text('메모를 삭제하시겠습니까?'),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                  ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                         onPressed: () {
                           _c.dailyMemo.removeAt(index);
-                          Hive.box('EasyDaily_Memo')
-                              .put(_c.pickDate.value, _c.dailyMemo.value);
+                          Hive.box('EasyDaily_Memo').put(
+                            _c.pickDate.value,
+                            _c.dailyMemo.value,
+                          );
                           print(_c.dailyMemo);
                           print(Hive.box('EasyDaily_Memo')
                               .get(_c.pickDate.value));
@@ -157,6 +85,7 @@ class MemoActBtn extends StatelessWidget {
                         },
                         child: const Text('삭제'),
                       ),
+                      const SizedBox(width: 30),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pop(context);
@@ -169,6 +98,140 @@ class MemoActBtn extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class EngPlusBtn extends StatelessWidget {
+  const EngPlusBtn({
+    Key? key,
+    required this.size,
+    required this.index,
+  }) : super(key: key);
+
+  final Size size;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    final _c = Get.put(Controller());
+    return AlertDialog(
+      alignment: Alignment.bottomCenter,
+      insetPadding: EdgeInsets.zero,
+      content: SizedBox(
+        height: 300,
+        width: size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '원본',
+              style: TextStyle(color: Colors.blue),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextField(
+              maxLines: 2,
+              autofocus: false,
+              enabled: true,
+              maxLength: 45,
+              controller: TextEditingController(
+                text: _c.dailyMemo[index]['memo'],
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    width: 1,
+                    color: Colors.black45,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              style: textStyle_basic,
+              onChanged: (value) {
+                Map _extraMemo = _c.dailyMemo[index];
+                _extraMemo['memo'] = value;
+                _c.dailyMemo.removeAt(index);
+                _c.dailyMemo.insert(index, _extraMemo);
+                Hive.box('EasyDaily_Memo').put(
+                  _c.pickDate.value,
+                  _c.dailyMemo.value,
+                );
+                print(_c.dailyMemo);
+                print(
+                  Hive.box('EasyDaily_Memo').get(
+                    _c.pickDate.value,
+                  ),
+                );
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Divider(
+              color: Colors.black45,
+              thickness: 1.0,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text(
+              '영어',
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextField(
+              maxLines: 3,
+              autofocus: true,
+              maxLength: 200,
+              enabled: true,
+              controller: TextEditingController(
+                text: _c.dailyMemo[index]['eMemo'],
+              ),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                contentPadding: const EdgeInsets.all(
+                  10.0,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    width: 1,
+                    color: Colors.black45,
+                  ),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+              ),
+              style: textStyle_basic,
+              onChanged: (value) {
+                Map _extraMemo = _c.dailyMemo[index];
+                _extraMemo['eMemo'] = value;
+                _c.dailyMemo.removeAt(index);
+                _c.dailyMemo.insert(index, _extraMemo);
+                Hive.box('EasyDaily_Memo').put(
+                  _c.pickDate.value,
+                  _c.dailyMemo.value,
+                );
+                print(_c.dailyMemo);
+                print(
+                  Hive.box('EasyDaily_Memo').get(
+                    _c.pickDate.value,
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

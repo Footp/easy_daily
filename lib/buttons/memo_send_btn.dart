@@ -91,18 +91,18 @@ class MemoSendBtn extends StatelessWidget {
           height: 100,
           child: Padding(
             padding: const EdgeInsets.only(
-              top: 24.0,
+              top: 16.0,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('기존 일기가 덮어씌워집니다.'),
+                const Text('일기를 덮어쓰겠습니까?'),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16.0,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       OutlinedButton(
                           onPressed: () {
@@ -114,6 +114,7 @@ class MemoSendBtn extends StatelessWidget {
                                 .get(_c.pickDate.value));
                           },
                           child: const Text('확인')),
+                      const SizedBox(width: 30),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pop(context);
