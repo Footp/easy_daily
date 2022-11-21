@@ -8,9 +8,12 @@ import 'package:easy_daily/screens/memo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialization(null);
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -34,6 +37,16 @@ void main() {
   );
 }
 
+// Hive 저장소에서 불러오기
+Future initialization(BuildContext? context) async {
+  await Hive.initFlutter();
+  await Hive.openBox('EasyDaily_Memo');
+  await Hive.openBox('EasyDaily_Diary');
+  await Future.delayed(
+    const Duration(seconds: 3),
+  );
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -44,41 +57,13 @@ class MyApp extends StatelessWidget {
       DateTime.now(),
     );
 
-    DataGet(_c);
+    HiveDataGet(_c);
     return SafeArea(
       child: Obx(
         () => Scaffold(
           resizeToAvoidBottomInset: false,
-          drawer: Drawer(
+          drawer: const Drawer(
             width: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    if (testMemo[_c.pickDate.value].runtimeType == Null) {
-                      null;
-                    } else {
-                      _c.dailyMemo.value = testMemo[_c.pickDate];
-                      allDayMemo[_c.pickDate] = testMemo[_c.pickDate];
-                    }
-                  },
-                  child: const Text('테스트 메모 삽입'),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                TextButton(
-                  onPressed: () {
-                    if (_c.dailyMemo.isNotEmpty) {
-                      _c.dailyMemo.value = [];
-                      allDayMemo.remove(_c.pickDate);
-                    }
-                  },
-                  child: const Text('오늘의 메모 모두 삭제'),
-                ),
-              ],
-            ),
           ),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(40),
@@ -127,13 +112,14 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void DataGet(Controller _c) {
-    allDayMemo[_c.pickDate] == null
+  void HiveDataGet(Controller _c) {
+    Hive.box('EasyDaily_Memo').get('Memo') != Null
         ? null
-        : _c.dailyMemo.value = allDayMemo[_c.pickDate];
-
-    allDayDiary[_c.pickDate] == null
+        : _c.dailyMemo.value =
+            Hive.box('EasyDaily_Memo').get(_c.pickDate.value);
+    Hive.box('EasyDaily_Diary').get('Diary') != Null
         ? null
-        : _c.dailyDiary.value = allDayDiary[_c.pickDate];
+        : _c.dailyDiary.value =
+            Hive.box('EasyDaily_Diary').get(_c.pickDate.value);
   }
 }

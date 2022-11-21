@@ -5,6 +5,7 @@ import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class MemoCreateBtn extends StatelessWidget {
   const MemoCreateBtn({super.key});
@@ -39,12 +40,10 @@ class MemoCreateBtn extends StatelessWidget {
                     'eMemo': '',
                   };
                   _c.dailyMemo.add(createMemo);
-                  allDayMemo[_c.pickDate] == Null
-                      ? null
-                      : allDayMemo[_c.pickDate] = _c.dailyMemo.value;
-                  print(_c.dailyMemo.length);
-                  print(allDayMemo[_c.pickDate].length);
-                  print(allDayMemo[_c.pickDate].runtimeType);
+                  Hive.box('EasyDaily_Memo')
+                      .put(_c.pickDate.value, _c.dailyMemo.value);
+                  print(_c.dailyDiary);
+                  print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
                 }
                 Navigator.pop(context);
               },

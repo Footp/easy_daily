@@ -1,10 +1,11 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors, unrelated_type_equality_checks, invalid_use_of_protected_member
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, prefer_const_constructors, unrelated_type_equality_checks, invalid_use_of_protected_member, avoid_print
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/buttons/buttom_page_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class DiaryScreen extends StatelessWidget {
   const DiaryScreen({super.key});
@@ -12,9 +13,6 @@ class DiaryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-    allDayDiary[_c.pickDate] == Null
-        ? allDayDiary[_c.pickDate] = _c.dailyDiary.value
-        : null;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -72,10 +70,10 @@ class DiaryPageKo extends StatelessWidget {
         ),
         onChanged: ((value) {
           _c.dailyDiary[0] = value;
-          allDayDiary[_c.pickDate] = _c.dailyDiary.value;
+          Hive.box('EasyDaily_Diary')
+              .put(_c.pickDate.value, _c.dailyDiary.value);
           print(_c.dailyDiary);
-          print(allDayDiary[_c.pickDate]);
-          print(allDayDiary[_c.pickDate].runtimeType);
+          print(Hive.box('EasyDaily_Diary').get(_c.pickDate.value));
         }),
       ),
     );
@@ -112,10 +110,10 @@ class DiaryPageEn extends StatelessWidget {
         ),
         onChanged: ((value) {
           _c.dailyDiary[1] = value;
-          allDayDiary[_c.pickDate] = _c.dailyDiary.value;
+          Hive.box('EasyDaily_Diary')
+              .put(_c.pickDate.value, _c.dailyDiary.value);
           print(_c.dailyDiary);
-          print(allDayDiary[_c.pickDate]);
-          print(allDayDiary[_c.pickDate].runtimeType);
+          print(Hive.box('EasyDaily_Diary').get(_c.pickDate.value));
         }),
       ),
     );

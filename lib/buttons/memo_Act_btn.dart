@@ -1,10 +1,10 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, file_names, avoid_print, non_constant_identifier_names, invalid_use_of_protected_member
 
-import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class MemoActBtn extends StatelessWidget {
   const MemoActBtn({
@@ -80,10 +80,10 @@ class MemoActBtn extends StatelessWidget {
                   _extraMemo['memo'] = value;
                   _c.dailyMemo.removeAt(index);
                   _c.dailyMemo.insert(index, _extraMemo);
-                  allDayMemo[_c.pickDate] = _c.dailyMemo.value;
-                  print(_c.dailyMemo[index]['memo']);
-                  print(allDayMemo[_c.pickDate][index]['memo']);
-                  print(allDayMemo[_c.pickDate].runtimeType);
+                  Hive.box('EasyDaily_Memo')
+                      .put(_c.pickDate.value, _c.dailyMemo.value);
+                  print(_c.dailyMemo);
+                  print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
                 },
               ),
               const SizedBox(
@@ -114,10 +114,10 @@ class MemoActBtn extends StatelessWidget {
                   _extraMemo['eMemo'] = value;
                   _c.dailyMemo.removeAt(index);
                   _c.dailyMemo.insert(index, _extraMemo);
-                  allDayMemo[_c.pickDate] = _c.dailyMemo.value;
-                  print(_c.dailyMemo[index]['eMemo']);
-                  print(allDayMemo[_c.pickDate][index]['eMemo']);
-                  print(allDayMemo[_c.pickDate].runtimeType);
+                  Hive.box('EasyDaily_Memo')
+                      .put(_c.pickDate.value, _c.dailyMemo.value);
+                  print(_c.dailyMemo);
+                  print(Hive.box('EasyDaily_Memo').get(_c.pickDate.value));
                 },
               ),
             ],
@@ -147,10 +147,11 @@ class MemoActBtn extends StatelessWidget {
                       OutlinedButton(
                         onPressed: () {
                           _c.dailyMemo.removeAt(index);
-                          allDayMemo[_c.pickDate] = _c.dailyMemo.value;
-                          print(_c.dailyMemo.length);
-                          print(allDayMemo[_c.pickDate].length);
-                          print(allDayMemo[_c.pickDate].runtimeType);
+                          Hive.box('EasyDaily_Memo')
+                              .put(_c.pickDate.value, _c.dailyMemo.value);
+                          print(_c.dailyMemo);
+                          print(Hive.box('EasyDaily_Memo')
+                              .get(_c.pickDate.value));
                           Navigator.pop(context);
                           Navigator.pop(context);
                         },

@@ -1,9 +1,10 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, non_constant_identifier_names, avoid_print, invalid_use_of_protected_member
 
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 
 class MemoSendBtn extends StatelessWidget {
   const MemoSendBtn({super.key});
@@ -75,8 +76,11 @@ class MemoSendBtn extends StatelessWidget {
               );
       }
       _c.dailyDiary[1] = sendMemoListEng.join('\n\n');
+      Hive.box('EasyDaily_Diary').put(_c.pickDate.value, _c.dailyDiary.value);
       sendMemoListEng.clear();
     }
+    print(_c.dailyDiary);
+    print(Hive.box('EasyDaily_Diary').get(_c.pickDate.value));
   }
 
   void SendCoverDialog(BuildContext context, Controller _c) {
@@ -105,6 +109,9 @@ class MemoSendBtn extends StatelessWidget {
                             SendDiary(_c);
                             Navigator.pop(context);
                             _c.pageCount.value = 1;
+                            print(_c.dailyDiary);
+                            print(Hive.box('EasyDaily_Diary')
+                                .get(_c.pickDate.value));
                           },
                           child: const Text('확인')),
                       OutlinedButton(
