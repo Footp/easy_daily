@@ -1,7 +1,11 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers, duplicate_ignore, unused_local_variable
 
-import 'package:easy_daily/buttons/memo_Act_btn.dart';
+import 'package:easy_daily/buttons/eng_plus_btn.dart';
+import 'package:easy_daily/buttons/memo_Del_btn.dart';
+import 'package:easy_daily/buttons/memo_copy_btn.dart';
 import 'package:easy_daily/buttons/memo_create_btn.dart';
+import 'package:easy_daily/buttons/memo_time_btn.dart';
+import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/buttons/buttom_page_btn.dart';
 import 'package:easy_daily/theme.dart';
@@ -52,22 +56,38 @@ class MemoScreen extends StatelessWidget {
                             Expanded(
                               child: GestureDetector(
                                 // 메모 수정
-                                onTap: () => showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      MemoModifyBtn(index: index),
-                                ),
-                                // 영어 작문
-                                onDoubleTap: () => showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      EngPlusBtn(size: size, index: index),
-                                ),
-                                // 메모 삭제
+                                onTap: () =>
+                                    modifyDialog(context, _c, index, size),
                                 onLongPress: () => showDialog(
                                   context: context,
-                                  builder: (BuildContext context) =>
-                                      MemoDelBtn(index: index),
+                                  builder: (BuildContext context) => Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 110.0),
+                                    child: AlertDialog(
+                                      alignment: Alignment.bottomCenter,
+                                      insetPadding: EdgeInsets.zero,
+                                      content: SizedBox(
+                                        height: 20,
+                                        width: 300,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            MemoTimeBtn(index: index),
+                                            const VerticalDivider(),
+                                            MemoModifyBtn(index: index),
+                                            const VerticalDivider(),
+                                            EngPlusBtn(
+                                                size: size, index: index),
+                                            const VerticalDivider(),
+                                            MemoDelBtn(index: index),
+                                            const VerticalDivider(),
+                                            MemoCopyBtn(index: index),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 child: SizedBox(
                                   width: double.infinity,
