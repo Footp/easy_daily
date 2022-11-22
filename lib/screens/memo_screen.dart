@@ -74,14 +74,22 @@ class MemoScreen extends StatelessWidget {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             MemoTimeBtn(index: index),
-                                            const VerticalDivider(),
+                                            const VerticalDivider(
+                                              color: Colors.black45,
+                                            ),
                                             MemoModifyBtn(index: index),
-                                            const VerticalDivider(),
+                                            const VerticalDivider(
+                                              color: Colors.black45,
+                                            ),
                                             EngPlusBtn(
                                                 size: size, index: index),
-                                            const VerticalDivider(),
+                                            const VerticalDivider(
+                                              color: Colors.black45,
+                                            ),
                                             MemoDelBtn(index: index),
-                                            const VerticalDivider(),
+                                            const VerticalDivider(
+                                              color: Colors.black45,
+                                            ),
                                             MemoCopyBtn(index: index),
                                           ],
                                         ),

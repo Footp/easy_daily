@@ -3,6 +3,7 @@
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
@@ -73,6 +74,9 @@ class MemoTimeBtn extends StatelessWidget {
           autofocus: true,
           maxLength: 2,
           textAlign: TextAlign.center,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+          ],
           controller: TextEditingController(
             text: _c.dailyMemo[index]['time'].substring(a, b),
           ),
@@ -82,16 +86,20 @@ class MemoTimeBtn extends StatelessWidget {
           ),
           style: textStyle_basic,
           onSubmitted: (value) {
-            value.length == 1 ? value = '0$value' : null;
-            value = value.toString();
-            Map _extraMemoMap = _c.dailyMemo.value[index];
-            _extraMemoMap['time'] =
-                _extraMemoMap['time'].replaceRange(a, b, value);
-            _c.dailyMemo.removeAt(index);
-            _c.dailyMemo.insert(index, _extraMemoMap);
-            _c.dailyMemo.sort((a, b) => a['time'].compareTo(b['time']));
-            Hive.box('EasyDaily_Memo')
-                .put(_c.pickDate.value, _c.dailyMemo.value);
+            if (value.isNotEmpty) {
+              value.length == 1 ? value = '0$value' : null;
+              value = value.toString();
+              Map _extraMemoMap = _c.dailyMemo.value[index];
+              _extraMemoMap['time'] =
+                  _extraMemoMap['time'].replaceRange(a, b, value);
+              _c.dailyMemo.removeAt(index);
+              _c.dailyMemo.insert(index, _extraMemoMap);
+              _c.dailyMemo.sort((a, b) => a['time'].compareTo(b['time']));
+              Hive.box('EasyDaily_Memo')
+                  .put(_c.pickDate.value, _c.dailyMemo.value);
+            } else {
+              null;
+            }
             Navigator.pop(context);
           },
         ),

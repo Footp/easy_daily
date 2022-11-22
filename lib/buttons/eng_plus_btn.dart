@@ -158,12 +158,15 @@ class EngPlusBtn extends StatelessWidget {
           ),
         );
       },
-      child: SizedBox(
+      child: const SizedBox(
         width: 40,
         child: Center(
           child: Text(
             'Eng+',
-            style: textStyle_iconbtn,
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 15,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
