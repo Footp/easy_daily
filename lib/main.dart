@@ -21,7 +21,8 @@ void main() async {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/memo', page: () => const MemoScreen()),
-        GetPage(name: '/diary', page: () => const DiaryScreen()),
+        GetPage(name: '/diarykr', page: () => const DiaryPageKo()),
+        GetPage(name: '/diaryen', page: () => const DiaryPageEn()),
       ],
       title: 'Easy Daily',
       home: const MyApp(),
@@ -114,16 +115,12 @@ class MyApp extends StatelessWidget {
                       highlightElevation: 0,
                       elevation: 0,
                       onPressed: () {
-                        _c.pageViewCount.value = _c.pageViewCount == 0 ? 1 : 0;
-                        pageController.animateToPage(
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.easeIn,
-                            _c.pageViewCount.value);
-                        print(_c.pageViewCount);
+                        _c.pageCount.value = _c.pageCount.value == 1 ? 2 : 1;
+                        print(_c.pageCount);
                       },
-                      child: _c.pageViewCount == 0
-                          ? const Text('영')
-                          : const Text('한'),
+                      child: _c.pageCount.value == 1
+                          ? const Text('한')
+                          : const Text('영'),
                     ),
                   ),
                 )

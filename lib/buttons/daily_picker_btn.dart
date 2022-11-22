@@ -41,7 +41,7 @@ class DailyPickerBtn extends StatelessWidget {
             },
             child: Text(
               _c.pickDate.value,
-              style: textStyle_basic,
+              style: textStyle_bold,
             ),
           ),
           IconButton(

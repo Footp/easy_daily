@@ -4,3 +4,5 @@ import 'package:flutter/material.dart';
 
 var textStyle_basic = const TextStyle(fontSize: 15, color: Colors.black);
 var textStyle_behind = const TextStyle(fontSize: 15, color: Colors.black45);
+var textStyle_bold = const TextStyle(
+    fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold);

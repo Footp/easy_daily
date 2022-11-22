@@ -17,7 +17,6 @@ class ButtomPageBtn extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           _c.pageCount.value = _c.pageCount.value == 0 ? 1 : 0;
-          _c.pageViewCount.value = 0;
           _c.dailyDiary.isEmpty ? _c.dailyDiary.value = ['', ''] : null;
         },
         child: SizedBox(
@@ -30,7 +29,7 @@ class ButtomPageBtn extends StatelessWidget {
             child: Center(
               child: Text(
                 buttomPageBar[_c.pageCount.value],
-                style: textStyle_basic,
+                style: textStyle_bold,
               ),
             ),
           ),

@@ -5,25 +5,26 @@ import 'package:easy_daily/buttons/memo_send_btn.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 
-PageController pageController = PageController();
 DateTime? newDate;
 
 List buttomPageBar = [
   'Memo',
   'Diary',
+  'Diary',
 ];
 
 List pageList = const [
   MemoScreen(),
-  DiaryScreen(),
+  DiaryPageKo(),
+  DiaryPageEn(),
 ];
 
 List pageActionList = const [
   MemoSendBtn(),
+  DiaryModifyBtn(),
   DiaryModifyBtn(),
 ];
 
