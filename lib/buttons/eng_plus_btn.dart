@@ -54,50 +54,12 @@ class EngPlusBtn extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextField(
-                    maxLines: 2,
-                    autofocus: false,
-                    enabled: true,
-                    maxLength: 45,
-                    controller: TextEditingController(
-                      text: _c.dailyMemo[index]['memo'],
+                  SizedBox(
+                    height: 50,
+                    child: SelectableText(
+                      _c.dailyMemo[index]['memo'],
+                      onTap: () => print(''),
                     ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.black12,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.black45,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    style: textStyle_basic,
-                    onChanged: (value) {
-                      Map _extraMemo = _c.dailyMemo[index];
-                      _extraMemo['memo'] = value;
-                      _c.dailyMemo.removeAt(index);
-                      _c.dailyMemo.insert(index, _extraMemo);
-                      Hive.box('EasyDaily_Memo').put(
-                        _c.pickDate.value,
-                        _c.dailyMemo.value,
-                      );
-                      print(
-                        Hive.box('EasyDaily_Memo').get(
-                          _c.pickDate.value,
-                        ),
-                      );
-                    },
                   ),
                   const SizedBox(height: 20),
                   const Divider(color: Colors.black45, thickness: 1.0),

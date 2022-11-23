@@ -34,6 +34,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.2.15
   get: ^4.6.5
   hive: ^2.2.3
   hive_flutter: ^1.1.0
@@ -44,10 +45,25 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/easy_daily_splash.png
+# background_image:
+# Run commands to generate splash screen
+# 1) flutter clean
+# 2) flutter pub get
+# 3) flutter pub run flutter_native_splash:create
+# 3-1) flutter pub run flutter_native_splash:remove
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+# The following section is specific to Flutter.
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

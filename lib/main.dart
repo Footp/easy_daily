@@ -7,12 +7,14 @@ import 'package:easy_daily/screens/diary_screen.dart';
 import 'package:easy_daily/screens/draw_screen.dart';
 import 'package:easy_daily/screens/memo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await initialization(null);
 
   runApp(
@@ -37,6 +39,7 @@ void main() async {
       locale: const Locale('ko'),
     ),
   );
+  FlutterNativeSplash.remove();
 }
 
 // Hive 저장소에서 불러오기

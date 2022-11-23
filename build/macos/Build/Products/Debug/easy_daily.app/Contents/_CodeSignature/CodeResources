@@ -6,11 +6,11 @@
 	<dict>
 		<key>Resources/AppIcon.icns</key>
 		<data>
-		URS7ZMjS6R2b/EKu5Z1xZIypGck=
+		cBcYIEUoW9fYrZ8mg5NzYn9TYFk=
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		ZqzWWZTpUOSXeejGNq+13/OiKjA=
+		+6n7cLfVbUwqbJFLBloc2mn50VM=
 		</data>
 		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects-101300.nib</key>
 		<data>
@@ -27,10 +27,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			QTxrloGhRHoiLqT5G5b155vYtjU=
+			3Fwz7ELWVjBe1p+iO3aiKzaDuhs=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"413c6b9681a1447a222ea4f91b96f5e79bd8b635"</string>
+			<string>cdhash H"dc5c33ec42d656305ed69fa23b76a22b3683ba1b"</string>
 		</dict>
 		<key>Frameworks/FlutterMacOS.framework</key>
 		<dict>
@@ -198,23 +198,23 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			EoXheuABgf6eEiNVX0OZEiQfI3M=
+			lf25/QuMd1qt5sYDt7zWZrETRL8=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"1285e17ae00181fe9e1223555f439912241f2373"</string>
+			<string>cdhash H"95fdb9fd0b8c775aade6c603b7bcd666b11344bf"</string>
 		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mnw/86rBhdpr28A9GFSr/xwLnYgcKRhSPRhn0wpyVWQ=
+			yb7rn8X0jdkEk8q0rjPiS4Mq9hgiFnb5649TBZcB/N0=
 			</data>
 		</dict>
 		<key>Resources/Assets.car</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2fcOKkmjoanGqsFOEROIT5LN6/CZkLUJcDBnKU1JrKg=
+			23JPgRTOZYBKku4Yf9rKhbbUXnNqBassBWRa2A5uNhk=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/MainMenu.nib/keyedobjects-101300.nib</key>

@@ -26,7 +26,11 @@ class DrawScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Text(
-              '하루를 쉽게 기록합니다.',
+              '하루를 쉽게 기록하고',
+              style: TextStyle(fontSize: 12),
+            ),
+            const Text(
+              '영어일기를 쉽게 씁니다.',
               style: TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 30),
@@ -136,6 +140,20 @@ class DrawScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     const Text('문의 및 의견보내기'),
                     const SizedBox(height: 10),
+                    const Divider(color: Colors.black),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text('Eng+'),
+                    const SizedBox(height: 10),
+                    const Text('  영어일기 작성기능'),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    const SizedBox(height: 10),
+                    const Text('문의 및 의견보내기'),
+                    const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () {
                         Clipboard.setData(
@@ -159,6 +177,13 @@ class DrawScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.blueAccent),
                       ),
                     ),
+                    const SizedBox(height: 30),
+                    const Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          '© 2022 Team 다른생각',
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ))
                   ],
                 ),
               ),

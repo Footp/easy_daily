@@ -69,11 +69,11 @@ modifyDialog(context, _c, index, size) {
       alignment: Alignment.bottomCenter,
       insetPadding: EdgeInsets.zero,
       content: SizedBox(
-        height: 60,
+        height: 70,
         width: size.width,
         child: TextField(
           autofocus: true,
-          maxLength: 45,
+          maxLength: 50,
           controller: TextEditingController(
             text: _c.dailyMemo[index]['memo'],
           ),

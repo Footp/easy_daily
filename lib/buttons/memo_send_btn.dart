@@ -45,6 +45,9 @@ class MemoSendBtn extends StatelessWidget {
               ),
             ),
           );
+        } else if (_c.dailyDiary.isEmpty) {
+          SendDiary(_c);
+          _c.pageCount.value = 1;
         } else if (_c.dailyDiary[0].length != _c.dailyDiary[1].length) {
           SendCoverDialog(context, _c);
         } else {

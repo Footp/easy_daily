@@ -1,8 +1,8 @@
 version: "Apple Swift version 5.7.1 (swiftlang-5.7.1.135.3 clang-1400.0.29.51)"
 options: "4744319b7814013fa7929f7ed930ea6d848091f90f5565393f8fa3185e2866d2"
-build_start_time: [1669090051, 734225988]
-build_end_time: [1669090055, 74043989]
+build_start_time: [1669174849, 877836942]
+build_end_time: [1669174851, 811498165]
 inputs:
-  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Flutter/GeneratedPluginRegistrant.swift": [1669090031, 802912712]
-  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Runner/AppDelegate.swift": [1669080148, 89575767]
-  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Runner/MainFlutterWindow.swift": [1669080148, 92784881]
+  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Flutter/GeneratedPluginRegistrant.swift": [1669174841, 674658298]
+  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Runner/AppDelegate.swift": [1669169504, 902202129]
+  "/Users/junghwankim/Documents/Develoment/Flutter/easy_daily/macos/Runner/MainFlutterWindow.swift": [1669169504, 907640457]
