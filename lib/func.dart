@@ -125,3 +125,23 @@ copyClip(context, index) {
     );
   });
 }
+
+String examplePath = 'assets/example/';
+
+List exampleImageList = [
+  'assets/example/1.png',
+  'assets/example/2.png',
+  'assets/example/3.png',
+  'assets/example/4.png',
+  'assets/example/5.png',
+  'assets/example/6.png',
+  'assets/example/7.png',
+  'assets/example/8.png',
+  'assets/example/9.png',
+  'assets/example/10.png',
+  'assets/example/11.png',
+  'assets/example/12.png',
+  'assets/example/13.png',
+  'assets/example/14.png',
+  'assets/example/15.png',
+];

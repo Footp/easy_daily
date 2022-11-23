@@ -1,3 +1,4 @@
+import 'package:easy_daily/screens/example_Screen.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -134,12 +135,6 @@ class DrawScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     const Text('  메모/다이어리 전환'),
                     const SizedBox(height: 10),
-                    const Divider(
-                      color: Colors.black,
-                    ),
-                    const SizedBox(height: 10),
-                    const Text('문의 및 의견보내기'),
-                    const SizedBox(height: 10),
                     const Divider(color: Colors.black),
                     const SizedBox(
                       height: 10,
@@ -147,6 +142,14 @@ class DrawScreen extends StatelessWidget {
                     const Text('Eng+'),
                     const SizedBox(height: 10),
                     const Text('  영어일기 작성기능'),
+                    const SizedBox(height: 10),
+                    const Divider(
+                      color: Colors.black,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const ExampleScreen(),
                     const SizedBox(height: 10),
                     const Divider(
                       color: Colors.black,
