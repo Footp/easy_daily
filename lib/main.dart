@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, non_constant_identifier_names, unrelated_type_equality_checks, avoid_print
-
 import 'package:easy_daily/buttons/daily_picker_btn.dart';
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
@@ -86,7 +84,6 @@ class MyApp extends StatelessWidget {
                       elevation: 0,
                       onPressed: () {
                         _c.pageCount.value = _c.pageCount.value == 1 ? 2 : 1;
-                        print(_c.pageCount);
                       },
                       child: _c.pageCount.value == 1
                           ? const Text('한')

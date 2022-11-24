@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_print, invalid_use_of_protected_member
-
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
@@ -105,12 +103,6 @@ class EngPlusBtn extends StatelessWidget {
                       Hive.box('EasyDaily_Memo').put(
                         _c.pickDate.value,
                         _c.dailyMemo.value,
-                      );
-                      print(_c.dailyMemo);
-                      print(
-                        Hive.box('EasyDaily_Memo').get(
-                          _c.pickDate.value,
-                        ),
                       );
                     },
                   ),

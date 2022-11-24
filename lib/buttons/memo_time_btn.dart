@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, avoid_print, invalid_use_of_protected_member
-
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +15,7 @@ class MemoTimeBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _c = Get.put(Controller());
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
@@ -66,6 +65,7 @@ class MemoTimeBtn extends StatelessWidget {
     );
   }
 
+  // ignore: no_leading_underscores_for_local_identifiers
   SizedBox timeField(Controller _c, BuildContext context, int a, int b) {
     return SizedBox(
       width: 30,
@@ -89,14 +89,13 @@ class MemoTimeBtn extends StatelessWidget {
             if (value.isNotEmpty) {
               value.length == 1 ? value = '0$value' : null;
               value = value.toString();
-              Map _extraMemoMap = _c.dailyMemo.value[index];
+              Map _extraMemoMap = _c.dailyMemo[index];
               _extraMemoMap['time'] =
                   _extraMemoMap['time'].replaceRange(a, b, value);
               _c.dailyMemo.removeAt(index);
               _c.dailyMemo.insert(index, _extraMemoMap);
               _c.dailyMemo.sort((a, b) => a['time'].compareTo(b['time']));
-              Hive.box('EasyDaily_Memo')
-                  .put(_c.pickDate.value, _c.dailyMemo.value);
+              Hive.box('EasyDaily_Memo').put(_c.pickDate.value, _c.dailyMemo);
             } else {
               null;
             }

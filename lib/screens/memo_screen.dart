@@ -1,10 +1,9 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, duplicate_ignore, unused_local_variable
-
 import 'package:easy_daily/buttons/eng_plus_btn.dart';
 import 'package:easy_daily/buttons/memo_Del_btn.dart';
 import 'package:easy_daily/buttons/memo_copy_btn.dart';
 import 'package:easy_daily/buttons/memo_create_btn.dart';
 import 'package:easy_daily/buttons/memo_time_btn.dart';
+// ignore: unused_import
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/buttons/buttom_page_btn.dart';
@@ -27,76 +26,77 @@ class MemoScreen extends StatelessWidget {
         children: [
           Expanded(
             child: Obx(
-              () => Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                    ),
-                    height: _c.dailyMemo.isEmpty
-                        ? 0
-                        : _c.dailyMemo.length * 50 > size.height - 200
-                            ? size.height - 200
-                            : _c.dailyMemo.length * 50,
-                    width: double.infinity,
-                    color: Colors.white,
-                    child: ListView.builder(
-                      itemCount: _c.dailyMemo.length,
-                      itemBuilder: (context, index) => SizedBox(
-                        height: 50,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              child: Text(
-                                _c.dailyMemo[index]['time'].substring(0, 5),
-                                style: textStyle_behind,
+              () => GestureDetector(
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (BuildContext context) => const MemoCreateBtn(),
+                ),
+                child: Container(
+                  width: double.infinity,
+                  color: Colors.red,
+                  child: ListView.builder(
+                    itemCount: _c.dailyMemo.length,
+                    itemBuilder: (context, index) => Obx(
+                      () => GestureDetector(
+                        // 메모 수정
+                        onTap: () {
+                          _c.sendList.contains(index) == false
+                              ? _c.sendList.add(index)
+                              : _c.sendList.remove(index);
+                        },
+                        onLongPress: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) => Padding(
+                            padding: const EdgeInsets.only(bottom: 110.0),
+                            child: AlertDialog(
+                              alignment: Alignment.bottomCenter,
+                              insetPadding: EdgeInsets.zero,
+                              content: SizedBox(
+                                height: 20,
+                                width: 300,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    MemoTimeBtn(index: index),
+                                    const VerticalDivider(
+                                      color: Colors.black45,
+                                    ),
+                                    MemoModifyBtn(index: index),
+                                    const VerticalDivider(
+                                      color: Colors.black45,
+                                    ),
+                                    EngPlusBtn(size: size, index: index),
+                                    const VerticalDivider(
+                                      color: Colors.black45,
+                                    ),
+                                    MemoDelBtn(index: index),
+                                    const VerticalDivider(
+                                      color: Colors.black45,
+                                    ),
+                                    MemoCopyBtn(index: index),
+                                  ],
+                                ),
                               ),
                             ),
-                            Expanded(
-                              child: GestureDetector(
-                                // 메모 수정
-                                onTap: () =>
-                                    modifyDialog(context, _c, index, size),
-                                onLongPress: () => showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => Padding(
-                                    padding:
-                                        const EdgeInsets.only(bottom: 110.0),
-                                    child: AlertDialog(
-                                      alignment: Alignment.bottomCenter,
-                                      insetPadding: EdgeInsets.zero,
-                                      content: SizedBox(
-                                        height: 20,
-                                        width: 300,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            MemoTimeBtn(index: index),
-                                            const VerticalDivider(
-                                              color: Colors.black45,
-                                            ),
-                                            MemoModifyBtn(index: index),
-                                            const VerticalDivider(
-                                              color: Colors.black45,
-                                            ),
-                                            EngPlusBtn(
-                                                size: size, index: index),
-                                            const VerticalDivider(
-                                              color: Colors.black45,
-                                            ),
-                                            MemoDelBtn(index: index),
-                                            const VerticalDivider(
-                                              color: Colors.black45,
-                                            ),
-                                            MemoCopyBtn(index: index),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                          ),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          color: _c.sendList.contains(index) == false
+                              ? Colors.transparent
+                              : Colors.lightGreen,
+                          height: 50,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 50,
+                                child: Text(
+                                  _c.dailyMemo[index]['time'].substring(0, 5),
+                                  style: textStyle_behind,
                                 ),
+                              ),
+                              Expanded(
                                 child: SizedBox(
                                   width: double.infinity,
                                   child: Text(
@@ -104,17 +104,13 @@ class MemoScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  // 메모 입력
-                  const Expanded(
-                    child: MemoCreateBtn(),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

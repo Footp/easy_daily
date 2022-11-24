@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, avoid_print, invalid_use_of_protected_member
-
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';

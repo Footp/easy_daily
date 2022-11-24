@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers, unused_local_variable, file_names, avoid_print, non_constant_identifier_names, invalid_use_of_protected_member
-
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +14,9 @@ class MemoDelBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _c = Get.put(Controller());
+    // ignore: unused_local_variable
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -44,11 +44,8 @@ class MemoDelBtn extends StatelessWidget {
                               _c.dailyMemo.removeAt(index);
                               Hive.box('EasyDaily_Memo').put(
                                 _c.pickDate.value,
-                                _c.dailyMemo.value,
+                                _c.dailyMemo,
                               );
-                              print(_c.dailyMemo);
-                              print(Hive.box('EasyDaily_Memo')
-                                  .get(_c.pickDate.value));
                               Navigator.pop(context);
                             },
                             child: const Text('삭제'),
