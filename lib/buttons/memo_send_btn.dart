@@ -1,5 +1,6 @@
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
+import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,21 +10,27 @@ class MemoSendBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _c = Get.put(Controller());
-    return IconButton(
-      onPressed: () {
-        if (_c.dailyMemo.isEmpty) {
+    Size size = MediaQuery.of(context).size;
+    return GestureDetector(
+      onTap: () {
+        _c.sendList.sort();
+        if (_c.sendList.isEmpty) {
           noMemo(context);
-        } else if (_c.dailyDiary.isEmpty) {
+        } else
           sendDiary(_c);
-          _c.pageCount.value = 1;
-        } else if (_c.dailyDiary[0].length != _c.dailyDiary[1].length) {
-          SendCoverDialog(context, _c);
-        } else {
-          sendDiary(_c);
-          _c.pageCount.value = 1;
-        }
       },
-      icon: const Icon(Icons.send_rounded),
+      child: Container(
+        padding: EdgeInsets.zero,
+        height: 50,
+        width: double.infinity,
+        color: Colors.lightBlue,
+        child: Center(
+          child: Text(
+            'Send',
+            style: textStyle_bold,
+          ),
+        ),
+      ),
     );
   }
 

@@ -15,4 +15,7 @@ class Controller extends GetxController {
   // 다이어리 체크박스
   RxBool checkKr = false.obs;
   RxBool checkEn = false.obs;
+
+  // 메모 전송 관련
+  RxBool selectMode = false.obs;
 }

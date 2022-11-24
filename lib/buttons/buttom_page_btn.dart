@@ -16,21 +16,17 @@ class ButtomPageBtn extends StatelessWidget {
     return Obx(
       () => GestureDetector(
         onTap: () {
-          _c.pageCount.value = _c.pageCount.value == 0 ? 1 : 0;
           _c.dailyDiary.isEmpty ? _c.dailyDiary.value = [[], []] : null;
+          _c.pageCount.value = _c.pageCount.value == 0 ? 1 : 0;
         },
-        child: SizedBox(
+        child: Container(
           height: 50,
           width: double.infinity,
-          child: Container(
-            height: double.infinity,
-            width: size.width / 2,
-            color: Colors.grey,
-            child: Center(
-              child: Text(
-                buttomPageBar[_c.pageCount.value],
-                style: textStyle_bold,
-              ),
+          color: Colors.grey,
+          child: Center(
+            child: Text(
+              buttomPageBar[_c.pageCount.value],
+              style: textStyle_bold,
             ),
           ),
         ),

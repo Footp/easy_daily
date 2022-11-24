@@ -69,7 +69,16 @@ class MyApp extends StatelessWidget {
                 _c.pageCount == 0 ? Colors.blueAccent : Colors.pinkAccent,
             title: const DailyPickerBtn(),
             actions: [
-              pageActionList[_c.pageCount.value],
+              IconButton(
+                onPressed: () {
+                  _c.selectMode.value =
+                      _c.selectMode.value == false ? true : false;
+                  _c.sendList.clear();
+                },
+                icon: _c.selectMode.value == false
+                    ? const Icon(Icons.done)
+                    : const Icon(Icons.close),
+              ),
             ],
           ),
           body: pageList[_c.pageCount.value],

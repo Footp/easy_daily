@@ -37,6 +37,7 @@ class MemoCreateBtn extends StatelessWidget {
               _c.dailyMemo.add(createMemo);
               Hive.box('EasyDaily_Memo').put(_c.pickDate.value, _c.dailyMemo);
             }
+            _c.sendList.clear();
             Navigator.pop(context);
           },
         ),

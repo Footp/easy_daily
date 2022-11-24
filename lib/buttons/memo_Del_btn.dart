@@ -46,6 +46,7 @@ class MemoDelBtn extends StatelessWidget {
                                 _c.pickDate.value,
                                 _c.dailyMemo,
                               );
+                              _c.sendList.clear();
                               Navigator.pop(context);
                             },
                             child: const Text('삭제'),

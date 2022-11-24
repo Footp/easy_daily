@@ -104,6 +104,62 @@ modifyDialog(context, _c, index, size) {
   );
 }
 
+diaryModifyDialog(context, _c, index, size) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => Padding(
+      padding: const EdgeInsets.only(bottom: 110.0),
+      child: AlertDialog(
+        alignment: Alignment.bottomCenter,
+        insetPadding: EdgeInsets.zero,
+        content: SizedBox(
+          height: 20,
+          width: 300,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  List _extraDiary = _c.dailyDiary[0];
+                  _extraDiary.removeAt(index);
+                  _c.dailyDiary[0] = _extraDiary;
+                  Hive.box('EasyDaily_Diary')
+                      .put(_c.pickDate.value, _c.dailyDiary);
+                  Navigator.pop(context);
+                },
+                child: SizedBox(
+                  width: 40,
+                  child: Text(
+                    'Del',
+                    style: textStyle_iconbtn,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              const VerticalDivider(
+                color: Colors.black45,
+              ),
+              Text('diary'),
+              const VerticalDivider(
+                color: Colors.black45,
+              ),
+              Text('diary'),
+              const VerticalDivider(
+                color: Colors.black45,
+              ),
+              Text('diary'),
+              const VerticalDivider(
+                color: Colors.black45,
+              ),
+              Text('diary'),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 //- 메모 복사 관련 -//
 
 String clipBoardString = '';
@@ -165,22 +221,27 @@ sendDiary(Controller _c) {
   _c.dailyDiary[0].runtimeType == String ? _c.dailyDiary.clear() : null;
   _c.dailyDiary[1].runtimeType == String ? _c.dailyDiary.clear() : null;
   {
-    for (int i = 0; i < _c.dailyMemo.length; i++) {
+    for (int i = 0; i < _c.sendList.length; i++) {
+      int _extraIndex = _c.sendList[i];
       _c.dailyDiary[0].add(
-        _c.dailyMemo[i]['memo'],
+        _c.dailyMemo[_extraIndex]['memo'],
       );
     }
   }
   {
-    for (int i = 0; i < _c.dailyMemo.length; i++) {
-      _c.dailyMemo[i]['eMemo'].length == 0
+    for (int i = 0; i < _c.sendList.length; i++) {
+      int _extraIndex = _c.sendList[i];
+
+      _c.dailyMemo[_extraIndex]['eMemo'].length == 0
           ? null
           : _c.dailyDiary[1].add(
-              _c.dailyMemo[i]['eMemo'],
+              _c.dailyMemo[_extraIndex]['eMemo'],
             );
     }
   }
-  Hive.box('EasyDaily_Diary').put(_c.pickDate.value, _c.dailyDiary.value);
+  _c.selectMode.value = false;
+  _c.pageCount.value = 1;
+  Hive.box('EasyDaily_Diary').put(_c.pickDate.value, _c.dailyDiary);
 }
 
 // 메모 없을시 알림창
@@ -197,7 +258,7 @@ noMemo(context) {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('전송할 메모가 없습니다.'),
+              const Text('메모를 선택해 주세요.'),
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32.0,

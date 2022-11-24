@@ -1,3 +1,4 @@
+import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/buttons/buttom_page_btn.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,8 @@ class DiaryPageKo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: no_leading_underscores_for_local_identifiers
     final _c = Get.put(Controller());
+    Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -42,11 +43,7 @@ class DiaryPageKo extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            List _extraDiary = _c.dailyDiary[0];
-                            _extraDiary.removeAt(index);
-                            _c.dailyDiary[0] = _extraDiary;
-                            Hive.box('EasyDaily_Diary')
-                                .put(_c.pickDate.value, _c.dailyDiary);
+                            diaryModifyDialog(context, _c, index, size);
                           },
                           child: Row(
                             children: const [
