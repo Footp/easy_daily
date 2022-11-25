@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Controller extends GetxController {
+  var scrollController = ScrollController().obs;
+
   // 데이터 관련
   RxList dailyMemo = [].obs;
   RxList dailyDiary = [].obs;
@@ -11,6 +14,8 @@ class Controller extends GetxController {
 
   // 페이지 관련
   RxInt pageCount = 0.obs;
+  RxInt memoPageCount = 0.obs;
+  RxInt diaryPageCount = 0.obs;
 
   // 다이어리 체크박스
   RxBool checkKr = false.obs;

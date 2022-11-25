@@ -1,6 +1,6 @@
 {
-    "name": "easy_daily",
-    "short_name": "easy_daily",
+    "name": "쉬운일기",
+    "short_name": "쉬운일기",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

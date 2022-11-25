@@ -1,9 +1,7 @@
-import 'package:easy_daily/buttons/daily_picker_btn.dart';
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
-import 'package:easy_daily/screens/diary_screen.dart';
-import 'package:easy_daily/screens/draw_screen.dart';
-import 'package:easy_daily/screens/memo_screen.dart';
+import 'package:easy_daily/screens/diary_main.dart';
+import 'package:easy_daily/screens/memo_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
@@ -21,8 +19,7 @@ void main() async {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/memo', page: () => const MemoScreen()),
-        GetPage(name: '/diarykr', page: () => const DiaryPageKo()),
-        GetPage(name: '/diaryen', page: () => const DiaryPageEn()),
+        GetPage(name: '/diary', page: () => const DiaryScreen()),
       ],
       title: 'Easy Daily',
       home: const MyApp(),
@@ -55,53 +52,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _c = Get.put(Controller());
+    final c = Get.put(Controller());
     newDate = DateTime.now();
-    dateTrans(_c, newDate);
-
+    dateTrans(c, newDate);
     return SafeArea(
       child: Obx(
-        () => Scaffold(
-          resizeToAvoidBottomInset: false,
-          drawer: const DrawScreen(),
-          appBar: AppBar(
-            backgroundColor:
-                _c.pageCount == 0 ? Colors.blueAccent : Colors.pinkAccent,
-            title: const DailyPickerBtn(),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  _c.selectMode.value =
-                      _c.selectMode.value == false ? true : false;
-                  _c.sendList.clear();
-                },
-                icon: _c.selectMode.value == false
-                    ? const Icon(Icons.done)
-                    : const Icon(Icons.close),
-              ),
-            ],
-          ),
-          body: pageList[_c.pageCount.value],
-          floatingActionButton: _c.pageCount != 0
-              ? Padding(
-                  padding: const EdgeInsets.only(bottom: 48.0),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: FloatingActionButton.small(
-                      hoverElevation: 0,
-                      highlightElevation: 0,
-                      elevation: 0,
-                      onPressed: () {
-                        _c.pageCount.value = _c.pageCount.value == 1 ? 2 : 1;
-                      },
-                      child: _c.pageCount.value == 1
-                          ? const Text('한')
-                          : const Text('영'),
-                    ),
-                  ),
-                )
-              : null,
-        ),
+        () => mainPageList[c.pageCount.value],
       ),
     );
   }
