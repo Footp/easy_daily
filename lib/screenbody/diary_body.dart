@@ -3,7 +3,6 @@
 import 'package:easy_daily/buttons/btn_collection.dart';
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
-import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -90,15 +89,16 @@ class DiaryBody extends StatelessWidget {
                                   c.dailyDiary[c.diaryPageCount.value];
                               extraDiary.add('');
                               c.dailyDiary[c.diaryPageCount.value] = extraDiary;
-                              scrollToMaxDown(c.scrollController.value, 300);
+                              scrollToMaxDown(c.scrollController.value);
                             },
                             child: Container(
-                              color: Colors.transparent,
+                              color: Colors.white,
                               height: 80,
-                              child: Center(
-                                child: Text(
-                                  diaryAddList[c.diaryPageCount.value],
-                                  style: textStyle_behind,
+                              child: const Center(
+                                child: Icon(
+                                  Icons.add_circle_outline,
+                                  size: 40,
+                                  color: Colors.black26,
                                 ),
                               ),
                             ),

@@ -22,6 +22,7 @@ class ButtomPageBtn extends StatelessWidget {
     return Obx(
       () => GestureDetector(
         onTap: () {
+          nullDiaryCheck(c);
           {
             // 기존String데이터를 삭제하여 오류방지
             c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
@@ -40,36 +41,59 @@ class ButtomPageBtn extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      scaffoldKey.currentState?.openDrawer();
-                    },
-                    icon: const Icon(Icons.question_mark),
+                  Center(
+                    child: IconButton(
+                      onPressed: () {
+                        scaffoldKey.currentState?.openDrawer();
+                      },
+                      icon: const Icon(
+                        Icons.question_mark,
+                        size: 20,
+                      ),
+                    ),
                   ),
                   c.pageCount.value == 1
-                      ? IconButton(
-                          onPressed: () {
-                            String extraString = c.dailyDiary[0].join('\n');
-                            Clipboard.setData(
-                              ClipboardData(text: extraString),
-                            ).then((_) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('클립보드에 복사되었습니다.'),
-                                ),
-                              );
-                            });
-                          },
-                          icon: const Icon(Icons.copy),
+                      ? Center(
+                          child: IconButton(
+                            onPressed: () {
+                              String extraString = c.dailyDiary[0].join('\n');
+                              Clipboard.setData(
+                                ClipboardData(text: extraString),
+                              ).then((_) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('클립보드에 복사되었습니다.'),
+                                  ),
+                                );
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.copy,
+                              size: 20,
+                            ),
+                          ),
                         )
                       : const SizedBox()
                 ],
               ),
               Center(
-                child: Text(
-                  buttomPageBar[c.pageCount.value],
-                  style: textStyle_bold,
-                ),
+                child: c.pageCount.value == 0
+                    ? Text(
+                        memoPageBar[c.memoPageCount.value],
+                        style: const TextStyle(
+                            fontFamily: 'Nanum_Myeongjo',
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700),
+                      )
+                    : Text(
+                        diaryPageBar[c.diaryPageCount.value],
+                        style: const TextStyle(
+                            fontFamily: 'Nanum_Myeongjo',
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700),
+                      ),
               ),
             ],
           ),
@@ -196,6 +220,15 @@ class EngPlusBtn extends StatelessWidget {
                     height: 50,
                     child: SelectableText(
                       c.dailyMemo[index]['memo'],
+                      // 번역API 사용 고려중
+                      // onTap: () => showDialog(
+                      //   context: context,
+                      //   builder: (context) => AlertDialog(
+                      //     content: SizedBox(
+                      //       child: Text('test'),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -331,7 +364,7 @@ class MemoCreateBtn extends StatelessWidget {
             }
             c.sendList.clear();
             Navigator.pop(context);
-            scrollToMaxDown(c.scrollController.value, 300);
+            scrollToMaxDown(c.scrollController.value);
           },
         ),
       ),

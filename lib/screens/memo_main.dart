@@ -54,7 +54,7 @@ class MemoScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
               },
               icon: c.selectMode.value == false
-                  ? const Icon(Icons.done)
+                  ? const Icon(Icons.send_rounded)
                   : const Icon(Icons.close),
             ),
           ),

@@ -112,26 +112,19 @@ class MemoBody extends StatelessWidget {
                                       width: 4.0,
                                     ),
                                     Container(
-                                      height: double.infinity,
-                                      width: 16.0,
-                                      color:
-                                          c.dailyMemo[index]['eMemo'].length ==
-                                                  0
-                                              ? Colors.transparent
-                                              : Colors.redAccent,
-                                      child:
-                                          c.dailyMemo[index]['eMemo'].length ==
-                                                  0
-                                              ? null
-                                              : const Center(
-                                                  child: Text(
-                                                    'E',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: c.dailyMemo[index]['eMemo']
+                                                    .length ==
+                                                0
+                                            ? Colors.transparent
+                                            : Colors.redAccent,
+                                      ),
+                                      height: 8.0,
+                                      width: 8.0,
+                                    ),
+                                    const SizedBox(
+                                      width: 8.0,
                                     ),
                                   ],
                                 ),
@@ -156,9 +149,10 @@ class MemoBody extends StatelessWidget {
                         height: 80,
                         child: Center(
                           child: c.selectMode == false
-                              ? Text(
-                                  memoAddList[c.memoPageCount.value],
-                                  style: textStyle_behind,
+                              ? const Icon(
+                                  Icons.add_circle_outline,
+                                  size: 40,
+                                  color: Colors.black26,
                                 )
                               : Text(
                                   c.sendList.isEmpty

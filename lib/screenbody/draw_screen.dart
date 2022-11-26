@@ -1,4 +1,3 @@
-import 'package:easy_daily/screenbody/example.dart';
 import 'package:easy_daily/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,18 +45,18 @@ class DrawScreen extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: const [
-                        Text('빈공간'),
+                        Text('작성버튼'),
                         SizedBox(
                           width: 10,
                         ),
                         Icon(
-                          Icons.touch_app,
+                          Icons.add_circle_outline,
                           size: 20,
                         ),
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Text('  싱글탭 - 새메모 작성'),
+                    const Text('  새메모 작성'),
                     const SizedBox(height: 30),
                     Row(
                       children: const [
@@ -78,6 +77,21 @@ class DrawScreen extends StatelessWidget {
                     const SizedBox(height: 30),
                     Row(
                       children: const [
+                        Text('날짜'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Icon(
+                          Icons.touch_app,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text('  더블탭 - 오늘로 이동'),
+                    const SizedBox(height: 30),
+                    Row(
+                      children: const [
                         Text('전송버튼'),
                         SizedBox(
                           width: 10,
@@ -90,64 +104,29 @@ class DrawScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     const Text('  다이어리로 메모전송'),
-                    const SizedBox(height: 10),
-                    const Divider(
-                      color: Colors.black,
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: const [
-                        Text('뷰버튼'),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.remove_red_eye,
-                          size: 20,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    const Text('  다이어리 읽기모드로 전환'),
                     const SizedBox(height: 30),
                     Row(
                       children: const [
-                        Text('플로팅버튼'),
+                        Text('전환버튼'),
                         SizedBox(
                           width: 10,
                         ),
-                        Icon(
-                          Icons.circle,
-                          size: 20,
-                        ),
+                        Text('한ㅣE')
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    const Text('  한/영 다이어리 전환'),
-                    const SizedBox(height: 10),
-                    const Divider(color: Colors.black),
                     const SizedBox(
-                      height: 10,
+                      width: 10,
                     ),
-                    const Text('하단바'),
                     const SizedBox(height: 10),
-                    const Text('  메모/다이어리 전환'),
-                    const SizedBox(height: 10),
-                    const Divider(color: Colors.black),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const Text('  한/영 언어 전환'),
+                    const SizedBox(height: 30),
                     const Text('Eng+'),
                     const SizedBox(height: 10),
                     const Text('  영어일기 작성기능'),
+                    const SizedBox(height: 30),
+                    const Text('하단바'),
                     const SizedBox(height: 10),
-                    const Divider(
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const ExampleScreen(),
+                    const Text('  메모장/일기장 이동'),
                     const SizedBox(height: 10),
                     const Divider(
                       color: Colors.black,

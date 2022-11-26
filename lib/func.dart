@@ -10,9 +10,13 @@ import 'package:intl/intl.dart';
 
 DateTime? newDate;
 
-List buttomPageBar = [
-  'Memo',
-  'Diary',
+List memoPageBar = [
+  '메 모 장',
+  'M e m o',
+];
+List diaryPageBar = [
+  '일 기 장',
+  'D i a r y',
 ];
 
 List mainPageList = const [
@@ -209,20 +213,10 @@ memoSelectExit(Controller c, BuildContext context) {
 
 int diaryMoveCount = 0;
 
-scrollToMaxDown(c, int millisec) {
+scrollToMaxDown(c) {
   Future.delayed(
-    const Duration(milliseconds: 100),
+    const Duration(milliseconds: 300),
     () => c.animateTo(c.position.maxScrollExtent,
-        duration: Duration(milliseconds: millisec), curve: Curves.linear),
+        duration: const Duration(milliseconds: 300), curve: Curves.linear),
   );
 }
-
-List memoAddList = [
-  '이곳을 탭하면 새 메모를 작성할 수 있습니다.',
-  'Click this Space to create a new memo.',
-];
-
-List diaryAddList = [
-  '이곳을 탭하면 줄이 추가됩니다.',
-  'Click this Space to add a text line.',
-];
