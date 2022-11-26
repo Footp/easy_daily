@@ -1,7 +1,7 @@
 import 'package:easy_daily/buttons/btn_collection.dart';
 import 'package:easy_daily/getx_controller.dart';
-import 'package:easy_daily/screens/screenbody/draw_screen.dart';
-import 'package:easy_daily/screens/screenbody/memo_body.dart';
+import 'package:easy_daily/screenbody/draw_screen.dart';
+import 'package:easy_daily/screenbody/memo_body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

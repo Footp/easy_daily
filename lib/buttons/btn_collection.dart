@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks, non_constant_identifier_names
+
 import 'package:easy_daily/func.dart';
 import 'package:easy_daily/getx_controller.dart';
 import 'package:easy_daily/theme.dart';
@@ -20,6 +22,11 @@ class ButtomPageBtn extends StatelessWidget {
     return Obx(
       () => GestureDetector(
         onTap: () {
+          {
+            // 기존String데이터를 삭제하여 오류방지
+            c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
+            c.dailyDiary[1].runtimeType == String ? c.dailyDiary.clear() : null;
+          }
           nullDiaryCheck(c);
           c.pageCount.value = c.pageCount.value == 0 ? 1 : 0;
           FocusScope.of(context).unfocus();
@@ -37,14 +44,25 @@ class ButtomPageBtn extends StatelessWidget {
                     onPressed: () {
                       scaffoldKey.currentState?.openDrawer();
                     },
-                    icon: const Icon(Icons.arrow_right),
+                    icon: const Icon(Icons.question_mark),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                    icon: const Icon(Icons.keyboard_hide),
-                  ),
+                  c.pageCount.value == 1
+                      ? IconButton(
+                          onPressed: () {
+                            String extraString = c.dailyDiary[0].join('\n');
+                            Clipboard.setData(
+                              ClipboardData(text: extraString),
+                            ).then((_) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('클립보드에 복사되었습니다.'),
+                                ),
+                              );
+                            });
+                          },
+                          icon: const Icon(Icons.copy),
+                        )
+                      : const SizedBox()
                 ],
               ),
               Center(
@@ -402,39 +420,25 @@ class MemoSendBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = Get.put(Controller());
+    Size size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        MemoToDiaryKr(c, context, size),
+        MemoToDiaryEn(c, context, size),
+      ],
+    );
+  }
+
+  GestureDetector MemoToDiaryKr(Controller c, BuildContext context, Size size) {
     return GestureDetector(
       onTap: () {
         nullDiaryCheck(c);
         c.sendList.sort();
         if (c.sendList.isEmpty) {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              content: SizedBox(
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 24.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('메모를 선택해 주세요.'),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 32.0,
-                        ),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('확인'),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('선택한 메모가 없습니다.'),
+              duration: Duration(seconds: 2),
             ),
           );
         } else {
@@ -452,6 +456,63 @@ class MemoSendBtn extends StatelessWidget {
             }
           }
           {
+            // 첫번째 빈줄 삭제
+            c.dailyDiary[0].length > 1 && c.dailyDiary[0].first.length == 0
+                ? c.dailyDiary[0].removeAt(0)
+                : null;
+          }
+          // 데이터베이스에 저장
+          Hive.box('EasyDaily_Diary').put(c.pickDate.value, c.dailyDiary);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('한글메모가 전송되었습니다.'),
+              duration: const Duration(seconds: 2),
+              action: SnackBarAction(
+                  label: '이동하기',
+                  onPressed: () {
+                    c.pageCount.value = 1;
+                    c.diaryPageCount.value = 0;
+                    c.selectMode.value = false;
+                    c.sendList.clear();
+                  }),
+            ),
+          );
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.zero,
+        height: 50,
+        width: size.width / 2,
+        color: Colors.lightBlue,
+        child: Center(
+          child: Text(
+            '한글메모 전송하기',
+            style: textStyle_bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector MemoToDiaryEn(Controller c, BuildContext context, Size size) {
+    return GestureDetector(
+      onTap: () {
+        nullDiaryCheck(c);
+        c.sendList.sort();
+        if (c.sendList.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('선택한 메모가 없습니다.'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        } else {
+          {
+            // 기존String데이터를 삭제하여 오류방지
+            c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
+            c.dailyDiary[1].runtimeType == String ? c.dailyDiary.clear() : null;
+          }
+          {
             // 체크된 영어 다이어리 전송
             for (int i = 0; i < c.sendList.length; i++) {
               c.dailyMemo[c.sendList[i]]['eMemo'].length == 0
@@ -463,30 +524,36 @@ class MemoSendBtn extends StatelessWidget {
           }
           {
             // 첫번째 빈줄 삭제
-            c.dailyDiary[0].length > 1 && c.dailyDiary[0].first.length == 0
-                ? c.dailyDiary[0].removeAt(0)
-                : null;
-
             c.dailyDiary[1].length > 1 && c.dailyDiary[1].first.length == 0
                 ? c.dailyDiary[1].removeAt(0)
                 : null;
           }
-          // 모드 초기화 및 페이지 변경
-          memoSelectExit(c, context);
-          c.pageCount.value = 1;
-
           // 데이터베이스에 저장
           Hive.box('EasyDaily_Diary').put(c.pickDate.value, c.dailyDiary);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('영어메모가 전송되었습니다.'),
+              duration: const Duration(seconds: 2),
+              action: SnackBarAction(
+                  label: '이동하기',
+                  onPressed: () {
+                    c.pageCount.value = 1;
+                    c.diaryPageCount.value = 1;
+                    c.selectMode.value = false;
+                    c.sendList.clear();
+                  }),
+            ),
+          );
         }
       },
       child: Container(
         padding: EdgeInsets.zero,
         height: 50,
-        width: double.infinity,
-        color: Colors.lightBlue,
+        width: size.width / 2,
+        color: Colors.redAccent,
         child: Center(
           child: Text(
-            'Send',
+            '영어메모 전송하기',
             style: textStyle_bold,
           ),
         ),
@@ -506,7 +573,7 @@ class MemoTimeBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: no_leading_underscores_for_local_identifiers
-    final _c = Get.put(Controller());
+    final c = Get.put(Controller());
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -522,21 +589,21 @@ class MemoTimeBtn extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  timeField(_c, context, 0, 2),
+                  timeField(c, context, 0, 2),
                   const SizedBox(
                     width: 30,
                     child: Center(
                       child: Text(':'),
                     ),
                   ),
-                  timeField(_c, context, 3, 5),
+                  timeField(c, context, 3, 5),
                   const SizedBox(
                     width: 30,
                     child: Center(
                       child: Text(':'),
                     ),
                   ),
-                  timeField(_c, context, 6, 8),
+                  timeField(c, context, 6, 8),
                 ],
               ),
             ),
@@ -556,7 +623,7 @@ class MemoTimeBtn extends StatelessWidget {
     );
   }
 
-  SizedBox timeField(Controller _c, BuildContext context, int a, int b) {
+  SizedBox timeField(Controller c, BuildContext context, int a, int b) {
     return SizedBox(
       width: 30,
       child: Center(
@@ -568,7 +635,7 @@ class MemoTimeBtn extends StatelessWidget {
             FilteringTextInputFormatter.allow(RegExp("[0-9]")),
           ],
           controller: TextEditingController(
-            text: _c.dailyMemo[index]['time'].substring(a, b),
+            text: c.dailyMemo[index]['time'].substring(a, b),
           ),
           decoration: const InputDecoration(
             border: InputBorder.none,
@@ -579,13 +646,13 @@ class MemoTimeBtn extends StatelessWidget {
             if (value.isNotEmpty) {
               value.length == 1 ? value = '0$value' : null;
               value = value.toString();
-              Map extraMemoMap = _c.dailyMemo[index];
+              Map extraMemoMap = c.dailyMemo[index];
               extraMemoMap['time'] =
                   extraMemoMap['time'].replaceRange(a, b, value);
-              _c.dailyMemo.removeAt(index);
-              _c.dailyMemo.insert(index, extraMemoMap);
-              _c.dailyMemo.sort((a, b) => a['time'].compareTo(b['time']));
-              Hive.box('EasyDaily_Memo').put(_c.pickDate.value, _c.dailyMemo);
+              c.dailyMemo.removeAt(index);
+              c.dailyMemo.insert(index, extraMemoMap);
+              c.dailyMemo.sort((a, b) => a['time'].compareTo(b['time']));
+              Hive.box('EasyDaily_Memo').put(c.pickDate.value, c.dailyMemo);
             } else {
               null;
             }
@@ -609,157 +676,137 @@ class DiaryPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return c.testEditMode == true
+        ? GestureDetector(
+            onTap: () {
+              diaryMoveCount = index;
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => Padding(
+                  padding: const EdgeInsets.only(bottom: 110.0),
+                  child: AlertDialog(
+                    alignment: Alignment.bottomCenter,
+                    insetPadding: EdgeInsets.zero,
+                    contentPadding: const EdgeInsets.all(10.0),
+                    content: SizedBox(
+                      height: 50,
+                      width: 300,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DiaryDel(context),
+                          const VerticalDivider(
+                            color: Colors.black45,
+                          ),
+                          DiaryCopy(context),
+                          const VerticalDivider(
+                            color: Colors.black45,
+                          ),
+                          DiaryMoveUp(),
+                          const VerticalDivider(
+                            color: Colors.black45,
+                          ),
+                          DiaryMoveDown(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: Row(
+              children: const [
+                SizedBox(
+                  height: 50,
+                  width: 30,
+                  child: Icon(
+                    Icons.more_vert,
+                    size: 20,
+                    color: Colors.black45,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+          )
+        : const SizedBox(
+            height: 50,
+            width: 40,
+          );
+  }
+
+  GestureDetector DiaryCopy(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        diaryMoveCount = index;
+        Clipboard.setData(
+          ClipboardData(text: c.dailyDiary[0][index]),
+        ).then((_) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('클립보드에 복사되었습니다.'),
+            ),
+          );
+        });
+        Navigator.pop(context);
+      },
+      child: SizedBox(
+        height: 60,
+        width: 60,
+        child: Center(
+          child: Text(
+            '복사',
+            style: textStyle_iconbtn,
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector DiaryDel(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
         showDialog(
           context: context,
-          builder: (BuildContext context) => Padding(
-            padding: const EdgeInsets.only(bottom: 110.0),
-            child: AlertDialog(
-              alignment: Alignment.bottomCenter,
-              insetPadding: EdgeInsets.zero,
-              contentPadding: const EdgeInsets.all(10.0),
-              content: SizedBox(
-                height: 50,
-                width: 300,
-                child: Row(
+          builder: (BuildContext context) => AlertDialog(
+            content: SizedBox(
+              height: 100,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            content: SizedBox(
-                              height: 100,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 16.0),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text('메모를 삭제하시겠습니까?'),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          OutlinedButton(
-                                            onPressed: () {
-                                              List extraDiary = c.dailyDiary[0];
-                                              extraDiary.removeAt(index);
-                                              c.dailyDiary[0] = extraDiary;
-                                              Hive.box('EasyDaily_Diary').put(
-                                                  c.pickDate.value,
-                                                  c.dailyDiary);
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('삭제'),
-                                          ),
-                                          const SizedBox(width: 50),
-                                          OutlinedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text('취소'),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                    const Text('이 줄을 삭제하시겠습니까?'),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedButton(
+                            onPressed: () {
+                              List extraDiary = c.dailyDiary[0];
+                              extraDiary.removeAt(index);
+                              c.dailyDiary[0] = extraDiary;
+                              Hive.box('EasyDaily_Diary')
+                                  .put(c.pickDate.value, c.dailyDiary);
+                              Navigator.pop(context);
+                            },
+                            child: const Text('삭제'),
                           ),
-                        );
-                      },
-                      child: SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: Center(
-                          child: Text(
-                            '삭제',
-                            style: textStyle_iconbtn,
+                          const SizedBox(width: 50),
+                          OutlinedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('취소'),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                    const VerticalDivider(
-                      color: Colors.black45,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Clipboard.setData(
-                          ClipboardData(text: c.dailyDiary[0][index]),
-                        ).then((_) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('클립보드에 복사되었습니다.'),
-                            ),
-                          );
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: Center(
-                          child: Text(
-                            '복사',
-                            style: textStyle_iconbtn,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const VerticalDivider(
-                      color: Colors.black45,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (diaryMoveCount != 0) {
-                          List extraList = c.dailyDiary[0];
-                          extraList.insert(
-                              diaryMoveCount - 1, extraList[diaryMoveCount]);
-                          extraList.removeAt(diaryMoveCount + 1);
-                          c.dailyDiary[0] = extraList;
-                          diaryMoveCount--;
-                        }
-                      },
-                      child: const SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: Center(
-                          child: Icon(Icons.keyboard_arrow_up),
-                        ),
-                      ),
-                    ),
-                    const VerticalDivider(
-                      color: Colors.black45,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (diaryMoveCount != c.dailyDiary[0].length - 1) {
-                          List extraList = c.dailyDiary[0];
-                          extraList.insert(
-                              diaryMoveCount + 2, extraList[diaryMoveCount]);
-                          extraList.removeAt(diaryMoveCount);
-                          c.dailyDiary[0] = extraList;
-                          diaryMoveCount++;
-                        }
-                      },
-                      child: const SizedBox(
-                        height: 60,
-                        width: 60,
-                        child: Center(
-                          child: Icon(Icons.keyboard_arrow_down),
-                        ),
-                      ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -767,21 +814,57 @@ class DiaryPopupMenu extends StatelessWidget {
           ),
         );
       },
-      child: Row(
-        children: const [
-          SizedBox(
-            height: 50,
-            width: 30,
-            child: Icon(
-              Icons.more_vert,
-              size: 20,
-              color: Colors.black45,
-            ),
+      child: SizedBox(
+        height: 60,
+        width: 60,
+        child: Center(
+          child: Text(
+            '삭제',
+            style: textStyle_iconbtn,
           ),
-          SizedBox(
-            width: 10,
-          ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector DiaryMoveDown() {
+    return GestureDetector(
+      onTap: () {
+        if (diaryMoveCount != c.dailyDiary[0].length - 1) {
+          List extraList = c.dailyDiary[0];
+          extraList.insert(diaryMoveCount + 2, extraList[diaryMoveCount]);
+          extraList.removeAt(diaryMoveCount);
+          c.dailyDiary[0] = extraList;
+          diaryMoveCount++;
+        }
+      },
+      child: const SizedBox(
+        height: 60,
+        width: 60,
+        child: Center(
+          child: Icon(Icons.keyboard_arrow_down),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector DiaryMoveUp() {
+    return GestureDetector(
+      onTap: () {
+        if (diaryMoveCount != 0) {
+          List extraList = c.dailyDiary[0];
+          extraList.insert(diaryMoveCount - 1, extraList[diaryMoveCount]);
+          extraList.removeAt(diaryMoveCount + 1);
+          c.dailyDiary[0] = extraList;
+          diaryMoveCount--;
+        }
+      },
+      child: const SizedBox(
+        height: 60,
+        width: 60,
+        child: Center(
+          child: Icon(Icons.keyboard_arrow_up),
+        ),
       ),
     );
   }

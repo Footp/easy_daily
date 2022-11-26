@@ -21,6 +21,7 @@ class Controller extends GetxController {
   RxBool checkKr = false.obs;
   RxBool checkEn = false.obs;
 
-  // 메모 전송 관련
+  // 모드변경 관련
   RxBool selectMode = false.obs;
+  RxBool testEditMode = false.obs;
 }

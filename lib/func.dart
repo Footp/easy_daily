@@ -51,7 +51,7 @@ dateTrans(Controller c, DateTime? date) {
 }
 
 // 메모 수정
-modifyDialog(context, c, index, size) {
+modifyDialog(context, c, index, size, String memoIndex) {
   showDialog(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -64,7 +64,7 @@ modifyDialog(context, c, index, size) {
           autofocus: true,
           maxLength: 50,
           controller: TextEditingController(
-            text: c.dailyMemo[index]['memo'],
+            text: c.dailyMemo[index][memoIndex],
           ),
           decoration: const InputDecoration(
             border: InputBorder.none,
@@ -75,7 +75,7 @@ modifyDialog(context, c, index, size) {
               // 리스트 안의 맵의 값이 변화해도 화면은 갱신되지 않는다.
               // 리스트 단위에서 맵을 통째로 교체하여 해결
               Map extraMemo = c.dailyMemo[index];
-              extraMemo['memo'] = value;
+              extraMemo[memoIndex] = value;
               c.dailyMemo.removeAt(index);
               c.dailyMemo.insert(index, extraMemo);
               Hive.box('EasyDaily_Memo')
