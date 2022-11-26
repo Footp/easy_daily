@@ -93,8 +93,8 @@ class DiaryBody extends StatelessWidget {
                               scrollToMaxDown(c.scrollController.value, 300);
                             },
                             child: Container(
-                              color: Colors.white,
-                              height: 60,
+                              color: Colors.transparent,
+                              height: 80,
                               child: Center(
                                 child: Text(
                                   diaryAddList[c.diaryPageCount.value],

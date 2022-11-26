@@ -71,16 +71,13 @@ modifyDialog(context, c, index, size, String memoIndex) {
           ),
           style: textStyle_basic,
           onChanged: (value) {
-            if (value.isNotEmpty) {
-              // 리스트 안의 맵의 값이 변화해도 화면은 갱신되지 않는다.
-              // 리스트 단위에서 맵을 통째로 교체하여 해결
-              Map extraMemo = c.dailyMemo[index];
-              extraMemo[memoIndex] = value;
-              c.dailyMemo.removeAt(index);
-              c.dailyMemo.insert(index, extraMemo);
-              Hive.box('EasyDaily_Memo')
-                  .put(c.pickDate.value, c.dailyMemo.value);
-            }
+            // 리스트 안의 맵의 값이 변화해도 화면은 갱신되지 않는다.
+            // 리스트 단위에서 맵을 통째로 교체하여 해결
+            Map extraMemo = c.dailyMemo[index];
+            extraMemo[memoIndex] = value;
+            c.dailyMemo.removeAt(index);
+            c.dailyMemo.insert(index, extraMemo);
+            Hive.box('EasyDaily_Memo').put(c.pickDate.value, c.dailyMemo.value);
           },
           onSubmitted: (value) {
             Navigator.pop(context);

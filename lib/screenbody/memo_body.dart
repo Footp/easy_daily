@@ -153,7 +153,7 @@ class MemoBody extends StatelessWidget {
                       },
                       child: Container(
                         color: Colors.transparent,
-                        height: 60,
+                        height: 80,
                         child: Center(
                           child: c.selectMode == false
                               ? Text(
