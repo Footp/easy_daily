@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
     final c = Get.put(Controller());
     newDate = DateTime.now();
     dateTrans(c, newDate);
+    nullDiaryCheck(c);
     return SafeArea(
       child: Obx(
         () => mainPageList[c.pageCount.value],
