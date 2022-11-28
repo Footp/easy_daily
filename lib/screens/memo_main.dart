@@ -21,12 +21,13 @@ class MemoScreen extends StatelessWidget {
         title: const DailyPickerBtn(),
         leading: Obx(
           () => c.selectMode.value == false
-              ? TextButton(
-                  onPressed: () => c.memoPageCount.value =
-                      c.memoPageCount.value == 0 ? 1 : 0,
-                  child: Text(
-                    c.memoPageCount.value == 0 ? '한' : 'E',
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+              ? IconButton(
+                  onPressed: () {
+                    scaffoldKey.currentState?.openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.question_mark,
+                    size: 20,
                   ),
                 )
               : IconButton(

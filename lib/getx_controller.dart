@@ -14,8 +14,7 @@ class Controller extends GetxController {
 
   // 페이지 관련
   RxInt pageCount = 0.obs;
-  RxInt memoPageCount = 0.obs;
-  RxInt diaryPageCount = 0.obs;
+  RxInt languageCount = 0.obs;
 
   // 다이어리 체크박스
   RxBool checkKr = false.obs;
@@ -23,5 +22,9 @@ class Controller extends GetxController {
 
   // 모드변경 관련
   RxBool selectMode = false.obs;
-  RxBool testEditMode = false.obs;
+  RxBool textEditMode = false.obs;
+
+  // History
+  RxList memoUndoHistory = [].obs;
+  RxList diaryUndoHistory = [[], []].obs;
 }

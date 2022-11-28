@@ -50,10 +50,10 @@ class DiaryBody extends StatelessWidget {
                           child: ListView.builder(
                             controller: c.scrollController.value,
                             itemCount:
-                                c.dailyDiary[c.diaryPageCount.value].length,
+                                c.dailyDiary[c.languageCount.value].length,
                             itemBuilder: (context, index) => Obx(
                               () => Container(
-                                decoration: c.testEditMode == true
+                                decoration: c.textEditMode == true
                                     ? const BoxDecoration(
                                         border: Border(
                                           bottom: BorderSide(
@@ -69,7 +69,7 @@ class DiaryBody extends StatelessWidget {
                                     DiaryPopupMenu(c: c, index: index),
                                     Obx(
                                       () => Expanded(
-                                        child: c.testEditMode == false
+                                        child: c.textEditMode == false
                                             ? TextFieldMode(c, index, false)
                                             : TextFieldMode(c, index, true),
                                       ),
@@ -82,13 +82,13 @@ class DiaryBody extends StatelessWidget {
                         ),
                       ),
                     ),
-                    c.testEditMode == true
+                    c.textEditMode == true
                         ? GestureDetector(
                             onTap: () {
                               List extraDiary =
-                                  c.dailyDiary[c.diaryPageCount.value];
+                                  c.dailyDiary[c.languageCount.value];
                               extraDiary.add('');
-                              c.dailyDiary[c.diaryPageCount.value] = extraDiary;
+                              c.dailyDiary[c.languageCount.value] = extraDiary;
                               scrollToMaxDown(c.scrollController.value);
                             },
                             child: Container(
@@ -121,7 +121,7 @@ class DiaryBody extends StatelessWidget {
       enabled: isbool,
       maxLines: null,
       controller: TextController(
-        text: c.dailyDiary[c.diaryPageCount.value][index],
+        text: c.dailyDiary[c.languageCount.value][index],
       ),
       decoration: const InputDecoration(
         isDense: true,
@@ -134,7 +134,7 @@ class DiaryBody extends StatelessWidget {
         height: 2,
       ),
       onChanged: (String value) {
-        c.dailyDiary[c.diaryPageCount.value][index] = value;
+        c.dailyDiary[c.languageCount.value][index] = value;
         Hive.box('EasyDaily_Diary').put(c.pickDate.value, c.dailyDiary);
       },
     );

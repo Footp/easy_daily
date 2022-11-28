@@ -20,24 +20,23 @@ class DiaryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.pinkAccent,
         title: const DailyPickerBtn(),
-        leading: Obx(
-          () => TextButton(
-            onPressed: () =>
-                c.diaryPageCount.value = c.diaryPageCount.value == 0 ? 1 : 0,
-            child: Text(
-              c.diaryPageCount.value == 0 ? '한' : 'E',
-              style: const TextStyle(fontSize: 20, color: Colors.white),
-            ),
+        leading: IconButton(
+          onPressed: () {
+            scaffoldKey.currentState?.openDrawer();
+          },
+          icon: const Icon(
+            Icons.question_mark,
+            size: 20,
           ),
         ),
         actions: [
           Obx(
             () => IconButton(
               onPressed: () {
-                c.testEditMode.value =
-                    c.testEditMode.value == false ? true : false;
+                c.textEditMode.value =
+                    c.textEditMode.value == false ? true : false;
               },
-              icon: c.testEditMode.value == false
+              icon: c.textEditMode.value == false
                   ? const Icon(Icons.visibility)
                   : const Icon(Icons.edit_note),
             ),

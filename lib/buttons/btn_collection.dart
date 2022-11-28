@@ -23,12 +23,6 @@ class ButtomPageBtn extends StatelessWidget {
       () => GestureDetector(
         onTap: () {
           nullDiaryCheck(c);
-          {
-            // 기존String데이터를 삭제하여 오류방지
-            c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
-            c.dailyDiary[1].runtimeType == String ? c.dailyDiary.clear() : null;
-          }
-          nullDiaryCheck(c);
           c.pageCount.value = c.pageCount.value == 0 ? 1 : 0;
           FocusScope.of(context).unfocus();
         },
@@ -42,13 +36,13 @@ class ButtomPageBtn extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Center(
-                    child: IconButton(
-                      onPressed: () {
-                        scaffoldKey.currentState?.openDrawer();
-                      },
-                      icon: const Icon(
-                        Icons.question_mark,
-                        size: 20,
+                    child: TextButton(
+                      onPressed: () => c.languageCount.value =
+                          c.languageCount.value == 0 ? 1 : 0,
+                      child: Text(
+                        c.languageCount.value == 0 ? '한' : 'E',
+                        style:
+                            const TextStyle(fontSize: 20, color: Colors.white),
                       ),
                     ),
                   ),
@@ -56,7 +50,9 @@ class ButtomPageBtn extends StatelessWidget {
                       ? Center(
                           child: IconButton(
                             onPressed: () {
-                              String extraString = c.dailyDiary[0].join('\n');
+                              String extraString = c
+                                  .dailyDiary[c.languageCount.value]
+                                  .join('\n');
                               Clipboard.setData(
                                 ClipboardData(text: extraString),
                               ).then((_) {
@@ -79,7 +75,7 @@ class ButtomPageBtn extends StatelessWidget {
               Center(
                 child: c.pageCount.value == 0
                     ? Text(
-                        memoPageBar[c.memoPageCount.value],
+                        memoPageBar[c.languageCount.value],
                         style: const TextStyle(
                             fontFamily: 'Nanum_Myeongjo',
                             fontSize: 20,
@@ -87,7 +83,7 @@ class ButtomPageBtn extends StatelessWidget {
                             fontWeight: FontWeight.w700),
                       )
                     : Text(
-                        diaryPageBar[c.diaryPageCount.value],
+                        diaryPageBar[c.languageCount.value],
                         style: const TextStyle(
                             fontFamily: 'Nanum_Myeongjo',
                             fontSize: 20,
@@ -316,15 +312,14 @@ class MemoCopyBtn extends StatelessWidget {
         Navigator.pop(context);
         copyClip(context, index);
       },
-      child: SizedBox(
+      child: const SizedBox(
         height: 60,
         width: 60,
         child: Center(
-          child: Text(
-            '복사',
-            style: textStyle_iconbtn,
-          ),
-        ),
+            child: Icon(
+          Icons.copy,
+          size: 24,
+        )),
       ),
     );
   }
@@ -344,6 +339,7 @@ class MemoCreateBtn extends StatelessWidget {
         height: 70,
         width: size.width,
         child: TextField(
+          enabled: true,
           autofocus: true,
           maxLength: 50,
           decoration: const InputDecoration(
@@ -433,13 +429,13 @@ class MemoDelBtn extends StatelessWidget {
           ),
         );
       },
-      child: SizedBox(
+      child: const SizedBox(
         height: 60,
         width: 60,
         child: Center(
-          child: Text(
-            '삭제',
-            style: textStyle_iconbtn,
+          child: Icon(
+            Icons.delete_outline,
+            size: 24,
           ),
         ),
       ),
@@ -476,11 +472,6 @@ class MemoSendBtn extends StatelessWidget {
           );
         } else {
           {
-            // 기존String데이터를 삭제하여 오류방지
-            c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
-            c.dailyDiary[1].runtimeType == String ? c.dailyDiary.clear() : null;
-          }
-          {
             // 체크된 한글 다이어리 전송
             for (int i = 0; i < c.sendList.length; i++) {
               c.dailyDiary[0].add(
@@ -504,7 +495,7 @@ class MemoSendBtn extends StatelessWidget {
                   label: '이동하기',
                   onPressed: () {
                     c.pageCount.value = 1;
-                    c.diaryPageCount.value = 0;
+                    c.languageCount.value = 0;
                     c.selectMode.value = false;
                     c.sendList.clear();
                   }),
@@ -541,11 +532,6 @@ class MemoSendBtn extends StatelessWidget {
           );
         } else {
           {
-            // 기존String데이터를 삭제하여 오류방지
-            c.dailyDiary[0].runtimeType == String ? c.dailyDiary.clear() : null;
-            c.dailyDiary[1].runtimeType == String ? c.dailyDiary.clear() : null;
-          }
-          {
             // 체크된 영어 다이어리 전송
             for (int i = 0; i < c.sendList.length; i++) {
               c.dailyMemo[c.sendList[i]]['eMemo'].length == 0
@@ -571,7 +557,7 @@ class MemoSendBtn extends StatelessWidget {
                   label: '이동하기',
                   onPressed: () {
                     c.pageCount.value = 1;
-                    c.diaryPageCount.value = 1;
+                    c.languageCount.value = 1;
                     c.selectMode.value = false;
                     c.sendList.clear();
                   }),
@@ -605,7 +591,6 @@ class MemoTimeBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: no_leading_underscores_for_local_identifiers
     final c = Get.put(Controller());
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
@@ -643,13 +628,13 @@ class MemoTimeBtn extends StatelessWidget {
           ),
         );
       },
-      child: SizedBox(
+      child: const SizedBox(
         height: 60,
         width: 60,
         child: Center(
-          child: Text(
-            '시간',
-            style: textStyle_iconbtn,
+          child: Icon(
+            Icons.timer_outlined,
+            size: 24,
           ),
         ),
       ),
@@ -709,7 +694,7 @@ class DiaryPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return c.testEditMode == true
+    return c.textEditMode == true
         ? GestureDetector(
             onTap: () {
               diaryMoveCount = index;
@@ -774,7 +759,7 @@ class DiaryPopupMenu extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Clipboard.setData(
-          ClipboardData(text: c.dailyDiary[0][index]),
+          ClipboardData(text: c.dailyDiary[c.languageCount.value][index]),
         ).then((_) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
@@ -784,13 +769,13 @@ class DiaryPopupMenu extends StatelessWidget {
         });
         Navigator.pop(context);
       },
-      child: SizedBox(
+      child: const SizedBox(
         height: 60,
         width: 60,
         child: Center(
-          child: Text(
-            '복사',
-            style: textStyle_iconbtn,
+          child: Icon(
+            Icons.copy,
+            size: 24,
           ),
         ),
       ),
@@ -821,9 +806,10 @@ class DiaryPopupMenu extends StatelessWidget {
                         children: [
                           OutlinedButton(
                             onPressed: () {
-                              List extraDiary = c.dailyDiary[0];
+                              List extraDiary =
+                                  c.dailyDiary[c.languageCount.value];
                               extraDiary.removeAt(index);
-                              c.dailyDiary[0] = extraDiary;
+                              c.dailyDiary[c.languageCount.value] = extraDiary;
                               Hive.box('EasyDaily_Diary')
                                   .put(c.pickDate.value, c.dailyDiary);
                               Navigator.pop(context);
@@ -847,13 +833,13 @@ class DiaryPopupMenu extends StatelessWidget {
           ),
         );
       },
-      child: SizedBox(
+      child: const SizedBox(
         height: 60,
         width: 60,
         child: Center(
-          child: Text(
-            '삭제',
-            style: textStyle_iconbtn,
+          child: Icon(
+            Icons.delete_outlined,
+            size: 24,
           ),
         ),
       ),
@@ -863,11 +849,11 @@ class DiaryPopupMenu extends StatelessWidget {
   GestureDetector DiaryMoveDown() {
     return GestureDetector(
       onTap: () {
-        if (diaryMoveCount != c.dailyDiary[0].length - 1) {
-          List extraList = c.dailyDiary[0];
+        if (diaryMoveCount != c.dailyDiary[c.languageCount.value].length - 1) {
+          List extraList = c.dailyDiary[c.languageCount.value];
           extraList.insert(diaryMoveCount + 2, extraList[diaryMoveCount]);
           extraList.removeAt(diaryMoveCount);
-          c.dailyDiary[0] = extraList;
+          c.dailyDiary[c.languageCount.value] = extraList;
           diaryMoveCount++;
         }
       },
@@ -885,10 +871,10 @@ class DiaryPopupMenu extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (diaryMoveCount != 0) {
-          List extraList = c.dailyDiary[0];
+          List extraList = c.dailyDiary[c.languageCount.value];
           extraList.insert(diaryMoveCount - 1, extraList[diaryMoveCount]);
           extraList.removeAt(diaryMoveCount + 1);
-          c.dailyDiary[0] = extraList;
+          c.dailyDiary[c.languageCount.value] = extraList;
           diaryMoveCount--;
         }
       },

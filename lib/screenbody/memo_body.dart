@@ -45,7 +45,7 @@ class MemoBody extends StatelessWidget {
                               onTap: () {
                                 c.selectMode.value == false
                                     ? modifyDialog(context, c, index, size,
-                                        c.memoPageCount == 0 ? 'memo' : 'eMemo')
+                                        c.languageCount == 0 ? 'memo' : 'eMemo')
                                     : {
                                         c.sendList.contains(index) == false
                                             ? c.sendList.add(index)
@@ -91,7 +91,7 @@ class MemoBody extends StatelessWidget {
                                     Expanded(
                                       child: SizedBox(
                                         width: double.infinity,
-                                        child: c.memoPageCount == 0
+                                        child: c.languageCount == 0
                                             ? Text(
                                                 c.dailyMemo[index]['memo'],
                                               )

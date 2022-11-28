@@ -1,0 +1,14 @@
+com.example.easy_daily.app-core-1.6.0-0 /Users/junghwankim/.gradle/caches/transforms-3/3d943b8a8d6718874a3fad89ac634056/transformed/core-1.6.0/res
+com.example.easy_daily.app-jetified-window-1.0.0-beta04-1 /Users/junghwankim/.gradle/caches/transforms-3/3e94d6806eb4169e793b1c4cddcd808d/transformed/jetified-window-1.0.0-beta04/res
+com.example.easy_daily.app-jetified-annotation-experimental-1.1.0-2 /Users/junghwankim/.gradle/caches/transforms-3/ac057a03636e6585c83693bfe2e3e310/transformed/jetified-annotation-experimental-1.1.0/res
+com.example.easy_daily.app-jetified-window-java-1.0.0-beta04-3 /Users/junghwankim/.gradle/caches/transforms-3/cd26984222cc0fa5df3c795677803a3d/transformed/jetified-window-java-1.0.0-beta04/res
+com.example.easy_daily.app-main-4 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/android/app/src/main/res
+com.example.easy_daily.app-release-5 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/android/app/src/release/res
+com.example.easy_daily.app-pngs-6 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/generated/res/pngs/release
+com.example.easy_daily.app-resValues-7 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/generated/res/resValues/release
+com.example.easy_daily.app-rs-8 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/generated/res/rs/release
+com.example.easy_daily.app-mergeReleaseResources-9 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.example.easy_daily.app-mergeReleaseResources-10 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.example.easy_daily.app-merged_res-11 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/app/intermediates/merged_res/release
+com.example.easy_daily.app-packaged_res-12 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/flutter_native_splash/intermediates/packaged_res/release
+com.example.easy_daily.app-packaged_res-13 /Users/junghwankim/Documents/Develoment/Flutter/easy_daily/build/path_provider_android/intermediates/packaged_res/release
